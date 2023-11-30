@@ -3,7 +3,9 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import History from '../Screens/History';
 import Account from '../Screens/Account';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icons from 'react-native-vector-icons/Entypo';
+import Iconss from 'react-native-vector-icons/MaterialIcons';
+import Iconsss from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS } from '../Colors/Colors';
 import Home from '../Screens/Home';
 const Bottom = createBottomTabNavigator();
@@ -17,21 +19,21 @@ const BottomNavigator = () => {
        <Bottom.Screen name="Home" component={Home}
       options={{tabBarIcon:(tintInfo)=>{
         return(
-            <Icon name='home' size={28} color={tintInfo.focused?COLORS.main:'grey'} />
+            <Icons name='home' size={28} color={tintInfo.focused?COLORS.main:'grey'} />
         )
       }}}
       />
       <Bottom.Screen  name="History" component={History}
       options={{tabBarIcon:(tintInfo)=>{
         return(
-            <Icon name='clockcircleo' size={25} color={tintInfo.focused?COLORS.main:'grey'} />
+            <Iconss name='work-history' size={28} color={tintInfo.focused?COLORS.main:'grey'} />
         )
       }}}
       />
       <Bottom.Screen name="Account" component={Account}
       options={{tabBarIcon:(tintInfo)=>{
         return(
-            <Icon name='user' size={28} color={tintInfo.focused?COLORS.main:'grey'} />
+            <Iconsss name='account' size={28} color={tintInfo.focused?COLORS.main:'grey'} />
         )
       }}}
       />
