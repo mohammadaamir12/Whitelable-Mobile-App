@@ -13,14 +13,14 @@ const HomeCartView = ({
 }) => {
     return (
         <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop:hp('2%'),marginStart:8,marginEnd:5,flex:1 }}>
-            <ImageBackground style={{ backgroundColor: '#8DC1B3', height:hp('25%'), width: wp('80%'), borderRadius: 18, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 10, shadowRadius: 7,elevation:4 }} source={img} imageStyle={{borderRadius:20}}>
+            <ImageBackground style={{ backgroundColor: '#8DC1B3', height:hp('23%'), width: wp('80%'), borderRadius: 18, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 10, shadowRadius: 7,elevation:4 }} source={img} imageStyle={{borderRadius:20}}>
                 <View style={{margin:30}}>
                 <View>
                 <Text style={{color:'#fff',fontSize:12,fontWeight:'500'}}>{name}</Text>
                 <Text style={{color:'#fff',fontSize:24,fontWeight:'700'}}>{balance}</Text>
                 <Text style={{color:'#fff',fontSize:14,fontWeight:'500'}}>Abhishek Jajoria</Text>
                 </View>
-                <View style={{top:hp('3.5%'),flexDirection:'row',alignItems:'center'}}>
+                <View style={{top:hp('5%'),flexDirection:'row',alignItems:'center'}}>
                 <Icon style={{color:'#fff',padding:1}} name='add-circle-outline' size={30} />
                 <Text style={{color:'#fff',left:5,fontSize:12,fontWeight:'500'}}>Fund</Text>
                 </View> 

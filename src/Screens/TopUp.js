@@ -13,7 +13,7 @@ const TopUp = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       <View style={{ flex: 8 }}>
         <WebView
-          source={{ uri: 'https://test.api.pg.runpaisa.com/checkout/6e0d6406d0d61bee8cdf8ea65169623a' }}
+          source={{ uri: 'https://test.api.pg.runpaisa.com/checkout/522a3c75798a4588acc7339ae159fe97' }}
           style={{ flex: 1 }}
           onNavigationStateChange={navState => {
             console.log("navState ", navState.url);

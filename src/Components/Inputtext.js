@@ -9,7 +9,7 @@ const Inputtext = ({
 }) => {
   return (
     <View style={{backgroundColor:COLORS.white}}>
-        <Text style={{marginTop:20,fontSize:14,fontWeight:'400',color:'grey'}}>{name}</Text>
+        <Text style={{marginTop:10,fontSize:14,fontWeight:'400',color:'grey'}}>{name}</Text>
         <TextInput placeholder={place} style={{borderWidth:1,borderColor:'grey',fontSize:17,borderRadius:10,paddingStart:20,marginTop:2}} 
         // value={number}
         // onChangeText={setNumber}

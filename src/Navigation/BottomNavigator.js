@@ -26,14 +26,14 @@ const BottomNavigator = () => {
       <Bottom.Screen  name="History" component={History}
       options={{tabBarIcon:(tintInfo)=>{
         return(
-            <Iconss name='work-history' size={28} color={tintInfo.focused?COLORS.main:'grey'} />
+            <Iconss name='work-history' size={29} color={tintInfo.focused?COLORS.main:'grey'} />
         )
       }}}
       />
       <Bottom.Screen name="Account" component={Account}
       options={{tabBarIcon:(tintInfo)=>{
         return(
-            <Iconsss name='account' size={28} color={tintInfo.focused?COLORS.main:'grey'} />
+            <Iconsss name='account' size={29} color={tintInfo.focused?COLORS.main:'grey'} />
         )
       }}}
       />

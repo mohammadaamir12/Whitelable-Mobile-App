@@ -14,7 +14,7 @@ const data = [
 const DropdownSelect = ({sty}) => {
     const [selected, setSelected] = useState('')
   return (
-    <View>
+    <View style={{}}>
       <SelectList 
         setSelected={(val) => setSelected(val)} 
         data={data} 

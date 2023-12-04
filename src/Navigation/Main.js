@@ -20,6 +20,8 @@ export default function(Stack){
         <Stack.Screen name="PayoutMoneytrans" component={PayoutMoneytrans} />
         <Stack.Screen name="BankBeneficiery" component={BankBeneficiery} />
         <Stack.Screen name="CreditCardBeneficiery" component={CreditCardBeneficiery} />
+       
+        
         
         
 

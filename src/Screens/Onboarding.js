@@ -93,10 +93,11 @@ const Onboarding = ({navigation}) => {
     }
 
     const skipSlide = () => {
-        const lastIndex = slides.length - 1;
-        const offset = lastIndex * Sizes.width;
-        ref?.current?.scrollToOffset({ offset });
-        setCurrDot(lastIndex);
+    //  const lastIndex = slides.length - 1;
+    //  const offset = lastIndex * Sizes.width;
+    //  ref?.current?.scrollToOffset({ offset });
+    //  setCurrDot(lastIndex);
+    navigation.navigate('Login')
     }
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
