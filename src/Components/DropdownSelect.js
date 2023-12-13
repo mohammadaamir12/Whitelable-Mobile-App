@@ -11,10 +11,11 @@ const data = [
     {key:'6', value:'Diary Products'},
     {key:'7', value:'Drinks'},
 ]
-const DropdownSelect = ({sty}) => {
+const DropdownSelect = ({sty,nam}) => {
     const [selected, setSelected] = useState('')
   return (
-    <View style={{}}>
+    <View style={{marginTop:10}}>
+      <Text>{nam}</Text>
       <SelectList 
         setSelected={(val) => setSelected(val)} 
         data={data} 

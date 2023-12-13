@@ -21,7 +21,7 @@ const Payout = ({navigation}) => {
   return (
     <View style={{flex:1,backgroundColor:COLORS.white}}>
         <View style={{width:'90%',alignSelf:'center',backgroundColor:COLORS.white,marginTop:10}}>
-        <TouchableOpacity style={{backgroundColor:COLORS.white,width:'100%'}} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={{backgroundColor:COLORS.white,right:8}} onPress={() => navigation.goBack()}>
         <Icon name='arrow-left' size={30} color={COLORS.black} />
         </TouchableOpacity>
         <Text style={{marginTop:40,fontSize:30,fontWeight:'700',color:COLORS.main}}>Money Transactions</Text>

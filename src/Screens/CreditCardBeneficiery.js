@@ -17,8 +17,8 @@ const CreditCardBeneficiery = ({navigation}) => {
       <View style={{width:'90%',alignSelf:'center'}}>
         <Inputtext name={'Credit Card Holder Name'} place={'Enter Name'}/>
         <Inputtext name={'Credit Card Number'} place={'Enter Card Number'}/>
-        <Text style={{marginTop:20,marginBottom:2}}>Bank Name</Text>
-        <DropdownSelect />
+
+        <DropdownSelect nam='Bank' />
         <Inputtext name={'IFSC'} place={'IFSC Code'}/>
       </View>
       <View style={{width:'80%',alignSelf:'center',marginTop:20}}>

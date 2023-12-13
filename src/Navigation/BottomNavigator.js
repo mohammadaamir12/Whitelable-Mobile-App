@@ -8,6 +8,7 @@ import Iconss from 'react-native-vector-icons/MaterialIcons';
 import Iconsss from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS } from '../Colors/Colors';
 import Home from '../Screens/Home';
+import ReoprtDetails from '../Screens/ReoprtDetails';
 const Bottom = createBottomTabNavigator();
 
 const BottomNavigator = () => {
@@ -23,7 +24,7 @@ const BottomNavigator = () => {
         )
       }}}
       />
-      <Bottom.Screen  name="History" component={History}
+      <Bottom.Screen  name="History" component={ReoprtDetails}
       options={{tabBarIcon:(tintInfo)=>{
         return(
             <Iconss name='work-history' size={29} color={tintInfo.focused?COLORS.main:'grey'} />
