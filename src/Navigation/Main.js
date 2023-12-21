@@ -22,6 +22,14 @@ import VerifyAccount from '../Screens/VerifyAccount'
 import VerifyGST from '../Screens/VerifyGST'
 import VerifyUPI from '../Screens/VerifyUPI'
 import VerificationReport from '../Screens/VerificationReport'
+import WalletDetails from '../Screens/WalletDetails'
+import AccountProfile from '../Screens/AccountProfile'
+import AccountBankDetails from '../Screens/AccountBankDetails'
+import AccountLocation from '../Screens/AccountLocation'
+import AccountDocumentDetails from '../Screens/AccountDocumentDetails'
+import AccountChangePassword from '../Screens/AccountChangePassword'
+import AccountChangePin from '../Screens/AccountChangePin'
+
 export default function (Stack) {
     return (
         <>
@@ -48,7 +56,24 @@ export default function (Stack) {
             <Stack.Screen name="VerifyGST" component={VerifyGST} />
             <Stack.Screen name="VerifyUPI" component={VerifyUPI} />
             <Stack.Screen name="VerificationReport" component={VerificationReport} />
+            <Stack.Screen name="WalletDetails" component={WalletDetails} />
+            <Stack.Screen name="AccountProfile" component={AccountProfile} />
+            <Stack.Screen name="AccountBankDetails" component={AccountBankDetails} />
+            <Stack.Screen name="AccountLocation" component={AccountLocation} />
+            <Stack.Screen name="AccountDocumentDetails" component={AccountDocumentDetails} />
+            <Stack.Screen name="AccountChangePassword" component={AccountChangePassword} />
+            <Stack.Screen name="AccountChangePin" component={AccountChangePin} />
+            
 
+
+
+
+
+
+
+
+
+           
 
         </>
     )

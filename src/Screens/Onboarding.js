@@ -5,8 +5,8 @@ import { COLORS, Sizes } from '../Colors/Colors'
 
 const Slide = ({ item }) => {
     return (
-        <View style={{ alignItems: 'center',width:Sizes.width }}>
-            <Image source={item.image} style={{ height: '75%', width: Sizes.width*0.85, resizeMode:'contain' }} />
+        <View style={{ alignItems: 'center', width: Sizes.width }}>
+            <Image source={item.image} style={{ height: '75%', width: Sizes.width * 0.85, resizeMode: 'contain' }} />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.subtitle}>{item.subtitle}</Text>
         </View>
@@ -32,7 +32,7 @@ const slides = [{
 
 ]
 
-const Onboarding = ({navigation}) => {
+const Onboarding = ({ navigation }) => {
     const [currDot, setCurrDot] = useState(0);
     const ref = useRef(null);
     const Footer = () => {
@@ -57,12 +57,15 @@ const Onboarding = ({navigation}) => {
                 </View>
                 <View style={{ marginBottom: 20 }}>
                     {currDot == slides.length - 1 ? <View style={{ height: 50 }}>
-                        <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate('Login')}>
+                        <TouchableOpacity style={styles.btn} onPress={() => navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Login' }]
+                        })}>
                             <Text style={{ fontWeight: '500', fontSize: 16, color: COLORS.white }}>Get Started !</Text>
                         </TouchableOpacity>
                     </View> : <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity onPress={skipSlide} style={[styles.btn, { backgroundColor: 'transparent', borderColor: COLORS.main,borderWidth:1 }]}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 16, color: COLORS.main}}>Skip</Text>
+                        <TouchableOpacity onPress={skipSlide} style={[styles.btn, { backgroundColor: 'transparent', borderColor: COLORS.main, borderWidth: 1 }]}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 16, color: COLORS.main }}>Skip</Text>
                         </TouchableOpacity>
                         <View style={{ width: 15 }} />
                         <TouchableOpacity style={styles.btn} onPress={goNextSlide}>
@@ -93,11 +96,14 @@ const Onboarding = ({navigation}) => {
     }
 
     const skipSlide = () => {
-    //  const lastIndex = slides.length - 1;
-    //  const offset = lastIndex * Sizes.width;
-    //  ref?.current?.scrollToOffset({ offset });
-    //  setCurrDot(lastIndex);
-    navigation.navigate('Login')
+        //  const lastIndex = slides.length - 1;
+        //  const offset = lastIndex * Sizes.width;
+        //  ref?.current?.scrollToOffset({ offset });
+        //  setCurrDot(lastIndex);
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }]
+        })
     }
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>

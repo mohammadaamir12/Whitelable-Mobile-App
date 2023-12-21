@@ -72,7 +72,10 @@ const DrawerContent = ({navigation}) => {
             </TouchableOpacity>
             {submenu==true?<View style={{borderRadius:10}} >
                 <View style={{flexDirection:'row',alignItems:'center'}}>
-                <Text  style={{margin:5, color: COLORS.white,fontWeight:'700',fontSize:13 }}>Wallet Details</Text>
+                <Text onPress={()=>{
+                    setSubmenu(!submenu)
+                    navigation.closeDrawer()
+                    navigation.navigate('WalletDetails')}}  style={{margin:5, color: COLORS.white,fontWeight:'700',fontSize:13 }}>Wallet Details</Text>
                 <Icon name='chevron-right' color={COLORS.white} size={20} style={{position:'absolute',left:'100%'}} />
                 </View>
                 <View style={{flexDirection:'row',alignItems:'center'}}>

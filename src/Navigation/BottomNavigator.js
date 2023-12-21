@@ -24,7 +24,7 @@ const BottomNavigator = () => {
         )
       }}}
       />
-      <Bottom.Screen  name="History" component={ReoprtDetails}
+      <Bottom.Screen  name="Reports" component={ReoprtDetails}
       options={{tabBarIcon:(tintInfo)=>{
         return(
             <Iconss name='work-history' size={29} color={tintInfo.focused?COLORS.main:'grey'} />

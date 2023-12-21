@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { ActivityIndicator, View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { COLORS, Sizes } from '../Colors/Colors'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import axios from "axios";
+import Toast from 'react-native-tiny-toast'
 
 
 
@@ -13,17 +14,43 @@ const Login = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [phoneerr, setPhoneErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
+    const [loading, isLoading] = useState(false);
+
+
+
+    const signin = () => {
+        isLoading(true)
+        axios.post('https://dev.m.api.runpaisa.com/login', {
+            username: phone,
+            password: pass,
+        })
+            .then(function (response) {
+                if (response.data.status == 'SUCCESS') {
+                    Toast.showSuccess(response.data.status)
+                    isLoading(false)
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'HomeScreen' }]
+                    })
+                }
+                else if (response.data.status == 'FAIL') {
+                    Toast.show(response.data.status)
+                    isLoading(false)
+                }
+            })
+
+    }
 
     const passwordShow = () => {
         if (secure === true) {
             setSecure(false)
-            setShowPass(false)  
+            setShowPass(false)
         }
-        else{
+        else {
             setSecure(true)
             setShowPass(true)
         }
-       
+
 
     }
 
@@ -41,13 +68,15 @@ const Login = ({ navigation }) => {
             setPassErr(false)
         }
         if (phone && pass) {
-            navigation.navigate('HomeScreen')
+            signin();
         }
 
     }
     return (
         <View style={{ flex: 1, alignItems: 'center', backgroundColor: COLORS.white }}>
-            <View style={{ width: Sizes.width * 0.90, marginTop: Sizes.height * 0.10 }}>
+            {loading == true ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                <ActivityIndicator size="large" color={COLORS.main} />
+            </View> : <View style={{ width: Sizes.width * 0.90, marginTop: Sizes.height * 0.10 }}>
                 <View>
                     <Text style={styles.maintxt}>Hello there,</Text>
                     <Text style={styles.maintxt2}>Welcome to Whitelable</Text>
@@ -57,14 +86,14 @@ const Login = ({ navigation }) => {
                 <View style={{ marginTop: hp('5%') }}>
                     <Text style={{ color: 'grey', fontSize: hp('2%') }}>Email Address/Phone Number</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                        <TextInput value={phone} onChangeText={setPhone} style={{ borderBottomColor: 'grey', borderBottomWidth: 1, width: '100%', fontSize: 17, color: COLORS.black }} />
+                        <TextInput value={phone} onChangeText={setPhone} style={{ borderBottomColor: 'grey', borderBottomWidth: 1, width: '100%', fontSize: 17, color: COLORS.black }} maxLength={10} />
                     </View>
                     {phoneerr == true ? <Text style={{ marginTop: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>Please enter Email/Number !</Text> : null}
                 </View>
                 <View style={{ marginTop: hp('5%') }}>
                     <Text style={{ color: 'grey', fontSize: hp('2%') }}>Password</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TextInput value={pass} onChangeText={setPass} secureTextEntry={showpass} style={{ borderBottomColor: 'grey', borderBottomWidth: 1, width: '100%', fontSize: 17,color:COLORS.black }} placeholderTextColor={COLORS.black} />
+                        <TextInput value={pass} onChangeText={setPass} secureTextEntry={showpass} style={{ borderBottomColor: 'grey', borderBottomWidth: 1, width: '100%', fontSize: 17, color: COLORS.black }} placeholderTextColor={COLORS.black} />
                         <TouchableOpacity activeOpacity={0.5} onPress={() => passwordShow()}>
                             {secure == true ? <Image source={require('../assets/icons8-eye-48.png')} style={{ height: hp('4.5%'), width: wp('8%'), right: 35 }} /> : <Image source={require('../assets/eye-close.png')} style={{ height: hp('4%'), width: wp('8%'), right: 35 }} />}
                         </TouchableOpacity>
@@ -75,7 +104,8 @@ const Login = ({ navigation }) => {
                     <Text style={{ color: COLORS.white, fontSize: 22, fontWeight: 'bold' }}>Sign in</Text>
                 </TouchableOpacity>
 
-            </View>
+            </View>}
+
 
         </View>
     )
@@ -92,7 +122,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: COLORS.main,
         width: '100%',
-        flexWrap:'nowrap'
+        flexWrap: 'nowrap'
     },
     signtxt: {
         fontSize: hp('2.5%'),
