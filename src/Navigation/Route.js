@@ -7,16 +7,21 @@ import Auth from './Auth';
 import { StatusBar } from 'react-native';
 import { COLORS } from '../Colors/Colors';
 const Stack = createNativeStackNavigator();
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Route = () => {
+const Route =() => {
+
+  
   return (
     <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown:false,
     animationTypeForReplace: 'push',
     animation:'slide_from_right'
     }}>
-      {Auth(Stack)}
-      {Main(Stack)}
+    {Auth(Stack)}
+    {Main(Stack)}
+
+      
     </Stack.Navigator>
     </NavigationContainer>
   )

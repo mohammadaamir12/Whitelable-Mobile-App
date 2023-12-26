@@ -8,8 +8,11 @@ import Iconssss from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../Colors/Colors'
 
+
+
 const Menulist = ({ naam, icon }) => {
   const navigation = useNavigation();
+ 
   return (
     <View
       style={{
@@ -30,15 +33,13 @@ const Menulist = ({ naam, icon }) => {
           marginVertical: 20
         }}>
         {icon == 'logout' ? <Iconssss name='logout' color={'grey'} size={22} /> :
-          icon == 'poscom' ? <Iconssss name='point-of-sale' color={'grey'} size={22} /> :
-            icon == 'pgcom' ? <Iconssss name='bag-personal-outline' color={'grey'} size={22} /> :
               icon == 'key-change' ? <Iconssss name='key-change' color={'grey'} size={22} /> :
                 icon == 'published-with-changes' ? <Iconsss name='published-with-changes' color={'grey'} size={22} /> :
                   icon == 'text-document' ? <Icons name='text-document' color={'grey'} size={22} /> :
                     icon == 'location' ? <Icons name='location' color={'grey'} size={22} /> :
                       icon == 'bank' ? <Iconss name='bank' color={'grey'} size={22} /> :
                         icon == 'profile' ? <Iconss name='profile' color={'grey'} size={22} /> :
-                        icon=='payoutcom'?  <Icon name='arrow-up-right' color={'grey'} size={22} />:null}
+                        null}
         <Text
           style={{
             color: COLORS.black,
@@ -56,6 +57,7 @@ const Menulist = ({ naam, icon }) => {
         icon=='text-document'?navigation.navigate('AccountDocumentDetails'):
         icon=='published-with-changes'?navigation.navigate('AccountChangePassword'):
         icon=='key-change'?navigation.navigate('AccountChangePin'):
+        icon=='logout'?logout():
         null}}>
         <Icon name='chevron-right' color={COLORS.black} size={25} />
         </TouchableOpacity>

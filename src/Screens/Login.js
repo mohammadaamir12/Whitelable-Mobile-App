@@ -4,6 +4,8 @@ import { COLORS, Sizes } from '../Colors/Colors'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from "axios";
 import Toast from 'react-native-tiny-toast'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -15,28 +17,32 @@ const Login = ({ navigation }) => {
     const [phoneerr, setPhoneErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
     const [loading, isLoading] = useState(false);
+    const [userData,setUserData]=useState([]);
 
 
 
-    const signin = () => {
+    const signin = async () => {
         isLoading(true)
         axios.post('https://dev.m.api.runpaisa.com/login', {
             username: phone,
             password: pass,
         })
             .then(function (response) {
+                 
                 if (response.data.status == 'SUCCESS') {
+                    
+                    setUserData(response.data)
+                    console.log(userData);
+                    console.log("response",response);
                     Toast.showSuccess(response.data.status)
                     isLoading(false)
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'HomeScreen' }]
                     })
+                    
                 }
-                else if (response.data.status == 'FAIL') {
-                    Toast.show(response.data.status)
-                    isLoading(false)
-                }
+               
             })
 
     }
