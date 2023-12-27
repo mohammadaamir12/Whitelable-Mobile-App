@@ -5,10 +5,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import axios from "axios";
 import Toast from 'react-native-tiny-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-
-
 const Login = ({ navigation }) => {
     const [secure, setSecure] = useState(true);
     const [showpass, setShowPass] = useState(true);
@@ -38,9 +34,15 @@ const Login = ({ navigation }) => {
                     isLoading(false)
                     navigation.reset({
                         index: 0,
-                        routes: [{ name: 'HomeScreen' }]
+                        routes: [{ name: 'OnboardProfile' }]
                     })
                     
+                }
+                else if(response.data.status == 'FAIL'){
+                   Toast.showSuccess(response.data.status)
+                    isLoading(false) 
+                    setPhone('')
+                    setPass('')
                 }
                
             })
