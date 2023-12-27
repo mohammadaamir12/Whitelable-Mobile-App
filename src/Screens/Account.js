@@ -3,6 +3,7 @@ import React from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import Menulist from '../Components/Menulist'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 
@@ -14,7 +15,7 @@ const Account = ({ navigation }) => {
         <View
           style={{
             backgroundColor: COLORS.main,
-            height: 250,
+            height:hp('30%'),
             borderBottomRightRadius: 25,
             borderBottomLeftRadius: 20,
             alignItems: 'center'
@@ -24,8 +25,8 @@ const Account = ({ navigation }) => {
             style={{
               position: 'absolute',
               alignSelf: 'flex-start',
-              top: 25,
-              left: 15
+              top:hp('3%'),
+              left:wp('4%')
             }}
             onPress={() => { navigation.openDrawer() }}>
             <Icon
@@ -38,23 +39,23 @@ const Account = ({ navigation }) => {
               fontSize: 20,
               fontWeight: '700',
               color: COLORS.white,
-              marginTop: 40
+              marginTop: hp("5%")
             }}>
             My Profile
           </Text>
           <View
             style={{
               backgroundColor: '#B8EE00',
-              height: 83,
-              width: 83,
+              height: hp('10%'),
+              width: wp('20%'),
               borderRadius: 40,
               alignItems: 'center',
               justifyContent: 'center',
               marginTop: 20
             }}>
             <Image style={{
-              height: 80,
-              width: 80,
+              height: hp('9.5%'),
+              width: wp('19.5%'),
               borderRadius: 40
             }}
               source={require('../assets/handsome.jpg')} />
@@ -70,13 +71,32 @@ const Account = ({ navigation }) => {
           </Text>
         </View>
 
-        <Menulist naam='Profile' icon='profile' />
-        <Menulist naam='Bank Details' icon='bank' />
-        <Menulist naam='Location Details' icon='location' />
-        <Menulist naam='Document details' icon='text-document' />
-        <Menulist naam='Change Password' icon='published-with-changes' />
-        <Menulist naam='Change Pin' icon='key-change' />
-        <Menulist naam='Logout' icon='logout' />
+        <Menulist
+          naam='Profile'
+          icon='profile'
+        />
+        <Menulist
+          naam='Bank Details'
+          icon='bank' />
+        <Menulist
+          naam='Location Details'
+          icon='location' />
+        <Menulist
+          naam='Document details'
+          icon='text-document'
+        />
+        <Menulist
+          naam='Change Password'
+          icon='published-with-changes'
+        />
+        <Menulist
+          naam='Change Pin'
+          icon='key-change'
+        />
+        <Menulist
+          naam='Logout'
+          icon='logout'
+        />
       </ScrollView>
     </View>
 
