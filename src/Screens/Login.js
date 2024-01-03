@@ -5,31 +5,37 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import axios from "axios";
 import Toast from 'react-native-tiny-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Base_Url,login } from '../Config/config';
+
 const Login = ({ navigation }) => {
     const [secure, setSecure] = useState(true);
     const [showpass, setShowPass] = useState(true);
-    const [pass, setPass] = useState('');
-    const [phone, setPhone] = useState('');
+    const [pass, setPass] = useState('12345678');
+    const [phone, setPhone] = useState('1234567891');
     const [phoneerr, setPhoneErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
     const [loading, isLoading] = useState(false);
-    const [userData,setUserData]=useState([]);
+    const [userData,setUserData]=useState('');
 
-
+    // useEffect(() => {
+    //     console.log('sdddd', userData); // Log the updated state
+    //     // Perform other actions if needed
+    //   }, [userData]);
 
     const signin = async () => {
         isLoading(true)
-        axios.post('https://dev.m.api.runpaisa.com/login', {
+        // console.log(`${Base_Url}/user/${userId}`);
+        axios.post(Base_Url+login, {
             username: phone,
             password: pass,
         })
             .then(function (response) {
                  
                 if (response.data.status == 'SUCCESS') {
-                    
+                    AsyncStorage.setItem('mess',response.data.status)
                     setUserData(response.data)
-                    console.log(userData);
-                    console.log("response",response);
+                    // console.log('sdddd',userData);
+                    // console.log("response",response);
                     Toast.showSuccess(response.data.status)
                     isLoading(false)
                     navigation.reset({
@@ -46,6 +52,7 @@ const Login = ({ navigation }) => {
                 }
                
             })
+            
 
     }
 
@@ -90,11 +97,11 @@ const Login = ({ navigation }) => {
                     <Text style={styles.maintxt2}>Welcome to Whitelable</Text>
                     <Text style={styles.signtxt}>Signin to continue</Text>
                 </View>
-
+   {console.log('inside render',userData)}
                 <View style={{ marginTop: hp('5%') }}>
-                    <Text style={{ color: 'grey', fontSize: hp('2%') }}>Email Address/Phone Number</Text>
+                    <Text style={{ color: 'grey', fontSize: hp('2%') }}>Phone Number</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                        <TextInput value={phone} onChangeText={setPhone} style={{ borderBottomColor: 'grey', borderBottomWidth: 1, width: '100%', fontSize: 17, color: COLORS.black }} maxLength={10} />
+                        <TextInput value={phone} onChangeText={setPhone} style={{ borderBottomColor: 'grey', borderBottomWidth: 1, width: '100%', fontSize: 17, color: COLORS.black }} maxLength={10} keyboardType='numeric' />
                     </View>
                     {phoneerr == true ? <Text style={{ marginTop: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>Please enter Email/Number !</Text> : null}
                 </View>

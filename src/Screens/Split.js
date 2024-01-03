@@ -1,19 +1,38 @@
 import { View, Text, StatusBar, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { COLORS } from '../Colors/Colors'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
  
 
 
 const Split = () => {
     const navigation = useNavigation();
+    const [screen, setScreen] = useState(false)
+    const[token,setToken]=useState(false)
+  
+  retrieveData = async () => {
+    const value = await AsyncStorage.getItem('mess');
+    if (value !==null) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+      });
+    }
+    else{
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      }); 
+    }
+  }
     useEffect(() => {
+      
+      
         setTimeout(() => {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Onboarding' }],
-              });
+          retrieveData()
+           
          },2000);
       },[])
 

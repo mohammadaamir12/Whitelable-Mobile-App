@@ -23,7 +23,7 @@ const AccountChangePassword = ({navigation}) => {
         <Inputtext name={'Current Password'} place={'Enter Current Password'}/>
         <Inputtext name={'New Password'} place={'Enter New Password'}  />
         <Inputtext name={'Confirm Password'} place={'Re-enter Password'}  />
-        <TouchableOpacity activeOpacity={0.7} onPress={Transfer} style={{backgroundColor:COLORS.main,borderRadius:30,width:'80%',height:'7%',alignSelf:'center',marginTop:30,alignItems:'center',justifyContent:'center',elevation:2}}>
+        <TouchableOpacity activeOpacity={0.7} onPress={Transfer} style={{backgroundColor:COLORS.main,borderRadius:30,width:'80%',paddingVertical:8,alignSelf:'center',marginTop:30,alignItems:'center',justifyContent:'center',elevation:2}}>
         <Text style={{fontSize:20,fontWeight:'700',color:COLORS.white}}>Save Changes</Text>
      </TouchableOpacity>
       </View>

@@ -1,15 +1,17 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
-import React from 'react'
+import React,{useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { COLORS, Sizes } from '../Colors/Colors';
 import HomeCartView from '../Components/HomeCartView';
 import SendandReceivebtn from '../Components/SendandReceivebtn';
 import Historycom from '../Components/Historycom';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 const Home = ({ navigation }) => {
+ 
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>

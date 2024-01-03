@@ -7,12 +7,19 @@ import Iconsss from 'react-native-vector-icons/MaterialIcons'
 import Iconssss from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../Colors/Colors'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 
 const Menulist = ({ naam, icon }) => {
   const navigation = useNavigation();
- 
+ const logout=()=>{
+  AsyncStorage.removeItem('mess')
+  navigation.reset({
+    index: 0,
+    routes: [{ name: "Login" }]
+  })
+ }
   return (
     <View
       style={{

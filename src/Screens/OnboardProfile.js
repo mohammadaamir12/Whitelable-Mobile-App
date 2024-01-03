@@ -10,10 +10,10 @@ const OnboardProfile = ({navigation}) => {
     
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
         <ScrollView contentContainerStyle={{paddingBottom: 40, backgroundColor: '#fff' }} showsVerticalScrollIndicator={false}>
-      <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-        <TouchableOpacity style={{ width: '10%', right: 30 }} onPress={() => navigation.goBack()}>
+      <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+        {/* <TouchableOpacity style={{ width: '10%', right: 30 }} onPress={() => navigation.goBack()}>
           <Icon name='arrow-left' size={30} color={COLORS.black} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Complete Profile</Text>
       </View>
      

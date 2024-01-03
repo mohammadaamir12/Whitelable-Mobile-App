@@ -16,6 +16,7 @@ const BottomNavigator = () => {
     <Bottom.Navigator screenOptions={{headerShown:false,tabBarActiveTintColor:COLORS.main,tabBarLabelStyle:{
         fontSize:12,
         fontWeight:'bold',
+        marginBottom:3
     }}} >
        <Bottom.Screen name="Home" component={Home}
       options={{tabBarIcon:(tintInfo)=>{

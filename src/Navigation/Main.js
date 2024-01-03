@@ -1,5 +1,5 @@
 import React from 'react'
-import { HomeScreen } from '../'
+import { HomeScreen, Login } from '../'
 import Payout from '../Screens/Payout'
 import Verificationsuit from '../Screens/Verificationsuit'
 import ReoprtDetails from '../Screens/ReoprtDetails'
@@ -29,10 +29,37 @@ import AccountLocation from '../Screens/AccountLocation'
 import AccountDocumentDetails from '../Screens/AccountDocumentDetails'
 import AccountChangePassword from '../Screens/AccountChangePassword'
 import AccountChangePin from '../Screens/AccountChangePin'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
+// export default function (Stack) {
+//     return (
+//         <>
 
-export default function (Stack) {
+
+
+
+
+
+
+
+
+
+
+//         </>
+//     )
+// }
+
+
+const Main = () => {
     return (
-        <>
+        <Stack.Navigator screenOptions={{
+            headerShown: false,
+            animationTypeForReplace: 'push',
+            animation: 'slide_from_right',
+           
+        }}
+        
+        >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="Payout" component={Payout} />
             <Stack.Screen name="Verificationsuit" component={Verificationsuit} />
@@ -66,15 +93,8 @@ export default function (Stack) {
             
 
 
-
-
-
-
-
-
-
-           
-
-        </>
+        </Stack.Navigator>
     )
 }
+
+export default Main

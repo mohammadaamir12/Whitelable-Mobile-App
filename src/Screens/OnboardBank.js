@@ -3,6 +3,7 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/Feather'
 import { COLORS } from '../Colors/Colors'
 import Inputtext from '../Components/Inputtext'
+import DropdownSelect from '../Components/DropdownSelect'
 
 const OnboardBank = ({navigation}) => {
   return (
@@ -15,7 +16,7 @@ const OnboardBank = ({navigation}) => {
           <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>User Bank Details</Text>
         </View>
         <View style={{ flex: 1, width: '90%', alignSelf: 'center', marginTop: 20 }}>
-          <Inputtext name={'Bank Account Type'} place={'Saving'} val='Notedit' />
+          <DropdownSelect nam={'Bank Account Type'}/>
           <Inputtext name={'Account Number'} place={'0011087456'} val='Notedit' />
           <Inputtext name={'IFSC Code'} place={'TOM8765B7'} val='Notedit' />
           <Inputtext name={'Pan Number'} place={'SDFRT4533k'} val='Notedit' />
