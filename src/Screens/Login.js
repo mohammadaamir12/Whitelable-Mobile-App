@@ -7,6 +7,8 @@ import Toast from 'react-native-tiny-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Base_Url,login } from '../Config/config';
 
+
+
 const Login = ({ navigation }) => {
     const [secure, setSecure] = useState(true);
     const [showpass, setShowPass] = useState(true);
@@ -120,8 +122,6 @@ const Login = ({ navigation }) => {
                 </TouchableOpacity>
 
             </View>}
-
-
         </View>
     )
 }

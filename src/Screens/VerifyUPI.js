@@ -6,9 +6,7 @@ import Inputtext from '../Components/Inputtext'
 
 
 const VerifyUPI = ({ navigation }) => {
-
-
- 
+  
   const[choose,setChoose]=useState(true)
   const[choose1,setChoose1]=useState(false)
   return (
