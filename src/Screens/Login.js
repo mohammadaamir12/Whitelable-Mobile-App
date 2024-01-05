@@ -10,12 +10,12 @@ import { Base_Url,login } from '../Config/config';
 const Login = ({ navigation }) => {
     const [secure, setSecure] = useState(true);
     const [showpass, setShowPass] = useState(true);
-    const [pass, setPass] = useState('12345678');
-    const [phone, setPhone] = useState('1234567891');
+    const [pass, setPass] = useState('');
+    const [phone, setPhone] = useState('');
     const [phoneerr, setPhoneErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
     const [loading, isLoading] = useState(false);
-    const [userData,setUserData]=useState('');
+    const [userData,setUserData]=useState([]);
 
     // useEffect(() => {
     //     console.log('sdddd', userData); // Log the updated state
@@ -97,7 +97,7 @@ const Login = ({ navigation }) => {
                     <Text style={styles.maintxt2}>Welcome to Whitelable</Text>
                     <Text style={styles.signtxt}>Signin to continue</Text>
                 </View>
-   {console.log('inside render',userData)}
+   {/* {console.log('inside render',userData)} */}
                 <View style={{ marginTop: hp('5%') }}>
                     <Text style={{ color: 'grey', fontSize: hp('2%') }}>Phone Number</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', }}>
