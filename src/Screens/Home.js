@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { COLORS, Sizes } from '../Colors/Colors';
@@ -7,15 +7,17 @@ import HomeCartView from '../Components/HomeCartView';
 import SendandReceivebtn from '../Components/SendandReceivebtn';
 import Historycom from '../Components/Historycom';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import InternetAvl from './InternetAvl';
 
 
 
 const Home = ({ navigation }) => {
- 
+ const [isConnected,setIsConnected]=useState(false);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar backgroundColor={COLORS.white} />
+     
       <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false}>
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 16, alignItems: 'center' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -80,6 +82,10 @@ const Home = ({ navigation }) => {
         <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
         <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
       </ScrollView>
+      
+      <InternetAvl isConnected={isConnected} setIsConnected={setIsConnected}/>
+      
+      
     </View>
   )
 }

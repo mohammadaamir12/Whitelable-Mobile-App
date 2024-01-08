@@ -33,7 +33,7 @@ const TopUp = ({ navigation }) => {
           source={{ uri: 'https://test.api.pg.runpaisa.com/checkout/20c5cf1c935c2f614a0f794dd22035a0' }}
           style={{ flex: 1 }}
           onNavigationStateChange={navState => {
-            console.log("navState ", navState.url);
+            // console.log("navState ", navState.url);
             if (navState.url.includes("notify")) {
               // console.log("go back after 10 seconds");
               // setBack(true)
@@ -50,7 +50,6 @@ const TopUp = ({ navigation }) => {
         <TouchableOpacity onPress={goBack} style={{ backgroundColor: COLORS.main, borderRadius: 10, width: '25%', height: '40%', justifyContent: 'center' }}>
           <Text style={{ alignSelf: 'center', color: COLORS.white, fontSize: 14, fontWeight: '400' }}>Go Back</Text></TouchableOpacity>
       </View> */}
-
     </View>
 
   )

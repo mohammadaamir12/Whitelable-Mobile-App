@@ -10,12 +10,15 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 const Account = ({ navigation }) => {
   return (
 
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <View style={{ 
+      flex: 1,
+      backgroundColor: COLORS.white,
+    }}>
       <ScrollView>
         <View
           style={{
             backgroundColor: COLORS.main,
-            height:hp('30%'),
+            height: hp('30%'),
             borderBottomRightRadius: 25,
             borderBottomLeftRadius: 20,
             alignItems: 'center'
@@ -25,8 +28,8 @@ const Account = ({ navigation }) => {
             style={{
               position: 'absolute',
               alignSelf: 'flex-start',
-              top:hp('3%'),
-              left:wp('4%')
+              top: hp('3%'),
+              left: wp('4%')
             }}
             onPress={() => { navigation.openDrawer() }}>
             <Icon
