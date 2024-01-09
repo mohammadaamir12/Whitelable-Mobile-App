@@ -2,6 +2,7 @@ import { View, Text,TouchableOpacity,TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
+import InternetAvl from './InternetAvl'
 
 
 
@@ -9,6 +10,8 @@ import Icon from 'react-native-vector-icons/Feather'
 const Payout = ({navigation}) => {
     const [number,setNumber]=useState('')
     const [errNum,setErrNum]=useState(false)
+    const [isConnected, setIsConnected] = useState(false);
+    
     const submit=()=>{
         if(!number || number.length <=9){
          setErrNum(true)
@@ -37,6 +40,9 @@ const Payout = ({navigation}) => {
             <Text style={{fontSize:17,fontWeight:'700',color:COLORS.white}}>Verify</Text>
         </TouchableOpacity>
         </View>
+        <View style={{position:'absolute',bottom:0,width:'100%'}}>
+       <InternetAvl isConnected={isConnected} setIsConnected={setIsConnected} />
+       </View>
     </View>
   )
 }

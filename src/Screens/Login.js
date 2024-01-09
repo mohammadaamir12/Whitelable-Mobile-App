@@ -91,7 +91,7 @@ const Login = ({ navigation }) => {
     }
     return (
         <View style={{ flex: 1, alignItems: 'center', backgroundColor: COLORS.white }}>
-            {loading == true ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+            {loading == true ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',backgroundColor:'#D3D3D3' }} >
                 <ActivityIndicator size="large" color={COLORS.main} />
             </View> : <View style={{ width: Sizes.width * 0.90, marginTop: Sizes.height * 0.10 }}>
                 <View>

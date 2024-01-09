@@ -7,8 +7,8 @@ import NetInfo from "@react-native-community/netinfo";
 const InternetAvl = ({ isConnected, setIsConnected }) => {
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
-            console.log("Connection type", state.type);
-            console.log("Is connected?", state.isConnected);
+            // console.log("Connection type", state.type);
+            // console.log("Is connected?", state.isConnected);
             setIsConnected(state.isConnected)
         });
 

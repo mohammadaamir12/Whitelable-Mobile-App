@@ -1,18 +1,20 @@
 import { View, Text,TouchableOpacity,TextInput,ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
 import { COLORS } from '../Colors/Colors'
 import Inputtext from '../Components/Inputtext'
 import DropdownSelect from '../Components/DropdownSelect'
 import Toast from 'react-native-tiny-toast'
+import InternetAvl from './InternetAvl'
 
 const RequestFund = ({navigation}) => {
+  const [isConnected, setIsConnected] = useState(false);
   const Transfer =()=>{
     Toast.showSuccess('Request Sent')
     navigation.goBack();
 }
   return (
-    
+    <View style={{flex:1}}>
     <ScrollView contentContainerStyle={{paddingBottom:40,backgroundColor:'#fff'}}>
     <View style={{flex:1,backgroundColor:COLORS.white}}>
     <View style={{width:'90%',alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
@@ -49,7 +51,8 @@ const RequestFund = ({navigation}) => {
     
 </View>
 </ScrollView>
-
+<InternetAvl isConnected={isConnected} setIsConnected={setIsConnected} />
+</View>
   )
 }
 

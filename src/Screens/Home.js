@@ -1,23 +1,49 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
-import React,{useEffect, useState} from 'react'
+import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar, BackHandler, Alert } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { COLORS, Sizes } from '../Colors/Colors';
 import HomeCartView from '../Components/HomeCartView';
 import SendandReceivebtn from '../Components/SendandReceivebtn';
 import Historycom from '../Components/Historycom';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import InternetAvl from './InternetAvl';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 
 const Home = ({ navigation }) => {
- const [isConnected,setIsConnected]=useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  // useEffect(() => {
+  const backAction = () => {
+    Alert.alert("Hold on!", "Are you sure you want to exit?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "Yes", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
+  //   const backHandler = BackHandler.addEventListener(
+  //     'hardwareBackPress',
+  //      backAction
+  //   );
+  //   return () => backHandler.remove();
+  // }, [])
+  useFocusEffect(
+    useCallback(() => {
+      BackHandler.addEventListener('hardwareBackPress', backAction);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', backAction);
+      };
+    }, [])
+  );
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar backgroundColor={COLORS.white} />
-     
+
       <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false}>
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 16, alignItems: 'center' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -82,10 +108,10 @@ const Home = ({ navigation }) => {
         <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
         <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
       </ScrollView>
-      
-      <InternetAvl isConnected={isConnected} setIsConnected={setIsConnected}/>
-      
-      
+
+      <InternetAvl isConnected={isConnected} setIsConnected={setIsConnected} />
+
+
     </View>
   )
 }

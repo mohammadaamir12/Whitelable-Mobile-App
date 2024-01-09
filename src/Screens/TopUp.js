@@ -4,9 +4,11 @@ import Icon from 'react-native-vector-icons/Feather'
 import WebView from 'react-native-webview'
 import { COLORS } from '../Colors/Colors'
 import * as Progress from 'react-native-progress';
+import InternetAvl from './InternetAvl'
 
 const TopUp = ({ navigation }) => {
   // const [back, setBack] = useState(false)
+  const [isConnected, setIsConnected] = useState(false);
   const [progress, setProgress] = useState(0)
   const [isLoad, setLoad] = useState(false)
   // const goBack = () => {
@@ -50,6 +52,7 @@ const TopUp = ({ navigation }) => {
         <TouchableOpacity onPress={goBack} style={{ backgroundColor: COLORS.main, borderRadius: 10, width: '25%', height: '40%', justifyContent: 'center' }}>
           <Text style={{ alignSelf: 'center', color: COLORS.white, fontSize: 14, fontWeight: '400' }}>Go Back</Text></TouchableOpacity>
       </View> */}
+       <InternetAvl isConnected={isConnected} setIsConnected={setIsConnected} />
     </View>
 
   )
