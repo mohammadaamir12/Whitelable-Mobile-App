@@ -14,7 +14,7 @@ const ReoprtDetails = ({navigation}) => {
     </TouchableOpacity>
     <Text style={{fontSize:26,fontWeight:'700',color:COLORS.main}}>Reports</Text>
     </View>
-    <View style={{flex:1,width:'90%',alignSelf:'center',marginTop:10}}>
+    <View style={{flex:1,width:'95%',alignSelf:'center',marginTop:10}}>
     <Botton name={'Payout Report'} icname={'arrows-turn-right'} />
     <Botton name={'Wallet Top-Up Report'} icname={'add-card'} />
     <Botton name={'Fund Request Report'} icname={'business-time'} />

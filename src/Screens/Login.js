@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import axios from "axios";
 import Toast from 'react-native-tiny-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Base_Url,login } from '../Config/config';
+import { Base_Url, login } from '../Config/config';
 
 
 
@@ -17,44 +17,61 @@ const Login = ({ navigation }) => {
     const [phoneerr, setPhoneErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
     const [loading, isLoading] = useState(false);
-    const [userData,setUserData]=useState([]);
+    const [userData, setUserData] = useState([]);
 
     // useEffect(() => {
     //     console.log('sdddd', userData); // Log the updated state
     //     // Perform other actions if needed
     //   }, [userData]);
-
+    const loginprofile = async () => {
+        const value = await AsyncStorage.getItem('profile');
+        console.log(value);
+        if (value == '1') {
+            
+            isLoading(false)
+            Toast.showSuccess('Success')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'HomeScreen' }],
+            });
+            
+        }
+        else {
+            isLoading(false)
+            Toast.showSuccess('Success')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'OnboardProfile' }],
+            });
+        }
+    }
     const signin = async () => {
         isLoading(true)
         // console.log(`${Base_Url}/user/${userId}`);
-        axios.post(Base_Url+login, {
+        axios.post(Base_Url + login, {
             username: phone,
             password: pass,
         })
             .then(function (response) {
-                 
+
                 if (response.data.status == 'SUCCESS') {
-                    AsyncStorage.setItem('mess',response.data.status)
+                    AsyncStorage.setItem('mess', response.data.status)
+                    AsyncStorage.setItem('profile', response.data.userData.profile_flag)
                     setUserData(response.data)
                     // console.log('sdddd',userData);
                     // console.log("response",response);
-                    Toast.showSuccess(response.data.status)
-                    isLoading(false)
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: 'OnboardProfile' }]
-                    })
+                    loginprofile();
                     
                 }
-                else if(response.data.status == 'FAIL'){
-                   Toast.showSuccess(response.data.status)
-                    isLoading(false) 
+                else if (response.data.status == 'FAIL') {
+                    Toast.showSuccess(response.data.status)
+                    isLoading(false)
                     setPhone('')
                     setPass('')
                 }
-               
+
             })
-            
+
 
     }
 
@@ -91,7 +108,7 @@ const Login = ({ navigation }) => {
     }
     return (
         <View style={{ flex: 1, alignItems: 'center', backgroundColor: COLORS.white }}>
-            {loading == true ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',backgroundColor:'#D3D3D3' }} >
+            {loading == true ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }} >
                 <ActivityIndicator size="large" color={COLORS.main} />
             </View> : <View style={{ width: Sizes.width * 0.90, marginTop: Sizes.height * 0.10 }}>
                 <View>
@@ -99,7 +116,7 @@ const Login = ({ navigation }) => {
                     <Text style={styles.maintxt2}>Welcome to Whitelable</Text>
                     <Text style={styles.signtxt}>Signin to continue</Text>
                 </View>
-   {/* {console.log('inside render',userData)} */}
+                {/* {console.log('inside render',userData)} */}
                 <View style={{ marginTop: hp('5%') }}>
                     <Text style={{ color: 'grey', fontSize: hp('2%') }}>Phone Number</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', }}>

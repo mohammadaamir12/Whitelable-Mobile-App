@@ -15,7 +15,7 @@ const Verificationsuit = ({navigation}) => {
     </TouchableOpacity>
     <Text style={{fontSize:26,fontWeight:'700',color:COLORS.main}}>Verfication Suite</Text>
     </View>
-    <View style={{flex:1,width:'90%',alignSelf:'center',marginTop:10}}>
+    <View style={{flex:1,width:'95%',alignSelf:'center',marginTop:10}}>
     <Botton name={'Verify Card'} icname={'credit-card'} />
     <Botton name={'Verify Pan'} icname={'id-card-alt'} />
     <Botton name={'Verify Aadhar'} icname={'address-card'} />
