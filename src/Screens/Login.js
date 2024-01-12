@@ -26,9 +26,10 @@ const Login = ({ navigation }) => {
     const loginprofile = async () => {
         const value = await AsyncStorage.getItem('profile');
         console.log(value);
+        isLoading(false)
         if (value == '1') {
             
-            isLoading(false)
+           
             Toast.showSuccess('Success')
             navigation.reset({
                 index: 0,
@@ -37,7 +38,7 @@ const Login = ({ navigation }) => {
             
         }
         else {
-            isLoading(false)
+            // isLoading(false)
             Toast.showSuccess('Success')
             navigation.reset({
                 index: 0,
@@ -48,7 +49,7 @@ const Login = ({ navigation }) => {
     const signin = async () => {
         isLoading(true)
         // console.log(`${Base_Url}/user/${userId}`);
-        axios.post(Base_Url + login, {
+        axios.post(Base_Url+login, {
             username: phone,
             password: pass,
         })
@@ -64,7 +65,7 @@ const Login = ({ navigation }) => {
                     
                 }
                 else if (response.data.status == 'FAIL') {
-                    Toast.showSuccess(response.data.status)
+                    Toast.showSuccess('Failed')
                     isLoading(false)
                     setPhone('')
                     setPass('')

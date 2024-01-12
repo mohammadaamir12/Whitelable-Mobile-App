@@ -15,6 +15,7 @@ const Menulist = ({ naam, icon }) => {
   const navigation = useNavigation();
   const logout = () => {
     AsyncStorage.removeItem('mess')
+    AsyncStorage.removeItem('profile')
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }]

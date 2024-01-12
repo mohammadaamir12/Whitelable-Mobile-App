@@ -1,5 +1,5 @@
 import { View, Text,TouchableOpacity,ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import Historycom from '../Components/Historycom'
@@ -8,6 +8,7 @@ import DropdownSelect from '../Components/DropdownSelect'
 
 
 const TopUpReport = ({navigation}) => {
+  const [filter, setFilter] = useState(false)
   return (
     <View style={{flex:1,backgroundColor:COLORS.white}}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -17,8 +18,14 @@ const TopUpReport = ({navigation}) => {
     </TouchableOpacity>
     <Text style={{fontSize:26,fontWeight:'700',color:COLORS.main}}>TopUp Report</Text>
     </View>
-    <View style={{flex:1, width: '90%', alignSelf: 'center',marginVertical:15 }}>
-            <Text style={{ marginTop: 10, fontSize: 24, color: '#000', fontWeight: '600' }}>Filter</Text>
+    <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center',marginVertical:13, justifyContent: 'space-between', }}>
+          <Text style={{ fontSize: 24, color: '#000', fontWeight: '600', }}>Filter</Text>
+          <TouchableOpacity onPress={() => setFilter(!filter)}>
+          {filter == true ? <Icon name='chevron-down' size={30} color={'#000'} /> : <Icon name='chevron-right' size={30} color={'#000'} />}
+          </TouchableOpacity>
+        </View>
+        {filter==true? <View style={{flex:1, width: '90%', alignSelf: 'center',marginVertical:15 }}>
+            
             <Inputtext name={'From'} place={'DD/MM/YY'} />
             <Inputtext name={'To'} place={'DD/MM/YY'} />
             <Inputtext name={'Order ID'} place={'Enter Order ID'} />
@@ -32,7 +39,8 @@ const TopUpReport = ({navigation}) => {
               </TouchableOpacity>
             </View>
 
-          </View>
+          </View>:null}
+   
     <View>
       
     <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'}/>
