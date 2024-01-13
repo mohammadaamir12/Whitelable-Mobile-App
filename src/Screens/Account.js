@@ -14,7 +14,7 @@ const Account = ({ navigation }) => {
       flex: 1,
       backgroundColor: COLORS.white,
     }}>
-      <ScrollView>
+      <ScrollView style={{bottom:10}}>
         <View
           style={{
             backgroundColor: COLORS.main,

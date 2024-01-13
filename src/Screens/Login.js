@@ -25,7 +25,7 @@ const Login = ({ navigation }) => {
     //   }, [userData]);
     const loginprofile = async () => {
         const value = await AsyncStorage.getItem('profile');
-        console.log(value);
+        // console.log(value);
         isLoading(false)
         if (value == '1') {
             
@@ -70,8 +70,13 @@ const Login = ({ navigation }) => {
                     setPhone('')
                     setPass('')
                 }
-
-            })
+               
+            }).catch(function (error) {
+                Toast.showSuccess('Server Error')
+                isLoading(false)
+                setPhone('')
+                setPass('')
+              })
 
 
     }

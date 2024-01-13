@@ -6,14 +6,14 @@ import Icons from 'react-native-vector-icons/MaterialIcons'
 import Iconss from 'react-native-vector-icons/MaterialCommunityIcons'
 import Iconsss from 'react-native-vector-icons/FontAwesome6'
 import { useNavigation } from '@react-navigation/native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 
 
 const Botton = ({
   name,
   icname,
-  page,
-  pg
 }) => {
   const navigation = useNavigation();
 
@@ -31,16 +31,16 @@ const Botton = ({
                         icname == 'money-bill' ? navigation.navigate('VerifyGST') :
                           icname == 'qrcode-scan' ? navigation.navigate('VerifyUPI') :
                             icname == 'auto-graph' ? navigation.navigate('VerificationReport') : null}
-      activeOpacity={0.7} style={{ marginTop: 15, backgroundColor: '#E8F1EE', flexDirection: 'row', alignItems: 'center', height: '10%', borderRadius: 8 }}>
+      activeOpacity={0.7} style={{ marginTop: 15, backgroundColor: '#E8F1EE', flexDirection: 'row', alignItems: 'center', height: hp('9%'), borderRadius: 8 }}>
 
-      <View style={{ borderRadius: 40, height: '60%', width: '15%', alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ borderRadius: 40, height: hp('60%'), width: wp('15%'), alignItems: 'center', justifyContent: 'center' }}>
 
         {
-          icname == 'add-card' ? <Icons name={icname} size={28} color={COLORS.main} /> :
-            icname == 'arrows-turn-right' ? <Iconsss name={icname} size={28} color={COLORS.main} /> :
-              icname == 'qrcode-scan' ? <Iconss name={icname} size={28} color={COLORS.main} /> :
-                icname == 'auto-graph' ? <Icons name={icname} size={28} color={COLORS.main} /> :
-                  <Icon name={icname} size={28} color={COLORS.main} />}
+          icname == 'add-card' ? <Icons name={icname} size={26} color={COLORS.main} /> :
+            icname == 'arrows-turn-right' ? <Iconsss name={icname} size={26} color={COLORS.main} /> :
+              icname == 'qrcode-scan' ? <Iconss name={icname} size={26} color={COLORS.main} /> :
+                icname == 'auto-graph' ? <Icons name={icname} size={26} color={COLORS.main} /> :
+                  <Icon name={icname} size={26} color={COLORS.main} />}
       </View>
       <Text style={{ flex: 1, fontSize: 15, fontWeight: '400', left: 15, color: COLORS.black }}>{name}</Text>
       <Icon style={{ right: 10 }} name='chevron-right' size={20} color={'#979797'} />
