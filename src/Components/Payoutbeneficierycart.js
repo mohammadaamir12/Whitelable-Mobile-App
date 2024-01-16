@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 const Payoutbeneficierycart = ({name}) => {
   const navigation = useNavigation();
   return (
-    <View style={{width:'90%',alignSelf:'center',backgroundColor:'#FFF',elevation:1,marginTop:20,borderRadius:8,height:'15%',borderWidth:1,borderColor:'grey'}}>
+    <View style={{width:'90%',alignSelf:'center',backgroundColor:'#FFF',elevation:1,marginTop:20,borderRadius:8,height:'20%',borderWidth:1,borderColor:'grey'}}>
       <Text style={{color:'#000',fontWeight:'500',alignSelf:'center',fontSize:18,marginTop:10}}>Abhishek Jajoria</Text>
       <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:5,height:'20%',alignItems:'center'}}>
         <Text style={{marginStart:20,fontSize:16,fontWeight:'400',color:'#000'}}>Beneficiery Name</Text>

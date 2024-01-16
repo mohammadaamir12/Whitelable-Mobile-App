@@ -1,13 +1,43 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native'
+import React, { useState,useEffect } from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import Historycom from '../Components/Historycom'
 import Inputtext from '../Components/Inputtext'
 import DropdownSelect from '../Components/DropdownSelect'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { Base_Url, payReport } from '../Config/config'
 
 const PayoutReoprt = ({ navigation }) => {
   const [filter, setFilter] = useState(false)
+  const [payoutReport,setPayoutReport]=useState([])
+  useEffect(()=>{
+    report();
+    
+  },[])
+  const report= async() =>{
+    const token = await AsyncStorage.getItem('cus_token');
+      const id = await AsyncStorage.getItem('cus_id');
+      axios.get(Base_Url+payReport, {
+        headers: {
+        'Content-Type':'application/json',
+        'token':token,
+        'cus_id':id
+      }
+    })
+        .then(function (response) {
+  
+            if (response.data.status == 'SUCCESS') {
+             console.log('new',response.data.allreports)
+             setPayoutReport(response.data.allreports)
+                // console.log('sdddd',userData);
+                // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
+            } 
+        }).catch(function (error) {
+           
+          })
+  }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -15,7 +45,7 @@ const PayoutReoprt = ({ navigation }) => {
           <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', right: 60 }} onPress={() => navigation.goBack()}>
             <Icon name='arrow-left' size={30} color={COLORS.black} />
           </TouchableOpacity>
-          <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Payout Reoprt</Text>
+          <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Payout Report</Text>
         </View>
         <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center',marginVertical:13, justifyContent: 'space-between', }}>
           <Text style={{ fontSize: 24, color: '#000', fontWeight: '600', }}>Filter</Text>
@@ -43,8 +73,14 @@ const PayoutReoprt = ({ navigation }) => {
         </View>:null}
        
         <View>
-
-          <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
+        <FlatList
+         showsVerticalScrollIndicator={false}
+        data={payoutReport}
+        renderItem={({item})=>
+        <Historycom nam={item.order_id} amt={item.credit_amount} imgg={require('../assets/user.png')} sub={'Subscription'} dat={item.paytm_txn_datetime} />
+        }
+        />
+          {/* <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
           <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
           <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
           <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
@@ -58,7 +94,7 @@ const PayoutReoprt = ({ navigation }) => {
           <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
           <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
           <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
-          <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
+          <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} /> */}
 
         </View>
       </ScrollView>

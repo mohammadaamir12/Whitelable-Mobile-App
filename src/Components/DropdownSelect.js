@@ -15,7 +15,7 @@ const DropdownSelect = ({sty,nam}) => {
     const [selected, setSelected] = useState('')
   return (
     <View style={{marginTop:10}}>
-      <Text>{nam}</Text>
+      <Text style={{color:'grey'}}>{nam}</Text>
       <SelectList 
         setSelected={(val) => setSelected(val)} 
         data={data} 

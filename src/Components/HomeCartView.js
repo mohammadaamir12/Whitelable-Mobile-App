@@ -51,7 +51,7 @@ const HomeCartView = ({
                                 fontSize: 24,
                                 fontWeight: '700'
                             }}>
-                            {balance}
+                            {balance || '0'}
                         </Text>
                         <Text
                             style={{

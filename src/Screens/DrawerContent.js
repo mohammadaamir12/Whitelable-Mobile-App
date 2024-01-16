@@ -13,8 +13,8 @@ const DrawerContent = ({navigation}) => {
     const [submenu,setSubmenu]=useState(false)
     return (
         <View style={{flex: 1, alignItems: 'center'}}>
-            <View style={{ backgroundColor: '#B8EE00', height: 70, width: 70, borderRadius: 40, alignItems: 'center', justifyContent: 'center',marginTop:30 }}>
-                <Image style={{ height: 66, width: 66, borderRadius: 40 }} source={require('../assets/handsome.jpg')} />
+            <View style={{ backgroundColor: '#B8EE00', height: 80, width: 80, borderRadius: 40, alignItems: 'center', justifyContent: 'center',marginTop:30 }}>
+                <Image style={{ height: 90, width: 90,}} source={require('../assets/man.png')} />
             </View>
             <View style={{marginTop:5}}>
                 <Text style={{ fontSize: 16, fontWeight: '700', color: COLORS.white }}>Abhishek Jajoria</Text>

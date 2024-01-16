@@ -1,13 +1,42 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import Historycom from '../Components/Historycom'
 import Inputtext from '../Components/Inputtext'
-import { filterConfig } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlerCommon'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { Base_Url, reportall } from '../Config/config'
 
 const AllTransactionReport = ({ navigation }) => {
   const [filter, setFilter] = useState(false)
+  const [allReport,setAllReport]=useState([])
+  useEffect(()=>{
+    report();
+    
+  })
+  const report= async() =>{
+    const token = await AsyncStorage.getItem('cus_token');
+      const id = await AsyncStorage.getItem('cus_id');
+      axios.get(Base_Url+reportall, {
+        headers: {
+        'Content-Type':'application/json',
+        'token':token,
+        'cus_id':id
+      }
+    })
+        .then(function (response) {
+  
+            if (response.data.status == 'SUCCESS') {
+             console.log(response.data)
+             setAllReport(response.data.allreports)
+                // console.log('sdddd',userData);
+                // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
+            } 
+        }).catch(function (error) {
+           
+          })
+  }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -42,8 +71,14 @@ const AllTransactionReport = ({ navigation }) => {
         </View>:null}
         
         <View>
-
-          <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
+        <FlatList
+         showsVerticalScrollIndicator={false}
+        data={allReport}
+        renderItem={({item})=>
+        <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={'Subscription'} dat={item.txn_date} />
+        }
+        />
+          {/* <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
           <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
           <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
           <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
@@ -57,7 +92,7 @@ const AllTransactionReport = ({ navigation }) => {
           <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
           <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
           <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
-          <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
+          <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} /> */}
 
         </View>
       </ScrollView>

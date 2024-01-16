@@ -58,6 +58,8 @@ const Login = ({ navigation }) => {
                 if (response.data.status == 'SUCCESS') {
                     AsyncStorage.setItem('mess', response.data.status)
                     AsyncStorage.setItem('profile', response.data.userData.profile_flag)
+                    AsyncStorage.setItem('cus_id', response.data.userData.cus_id)
+                    AsyncStorage.setItem('cus_token', response.data.userData.cus_token)
                     setUserData(response.data)
                     // console.log('sdddd',userData);
                     // console.log("response",response);

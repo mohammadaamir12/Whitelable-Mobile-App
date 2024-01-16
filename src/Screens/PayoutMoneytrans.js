@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import HomeCartView from '../Components/HomeCartView'
@@ -8,9 +8,9 @@ import Payoutbeneficierycart from '../Components/Payoutbeneficierycart'
 
 
 const PayoutMoneytrans = ({ navigation }) => {
+  const [filter, setFilter] = useState(false)
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-
       <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.white, marginTop: 10, flexDirection: 'row' }}>
         <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', right: 25 }} onPress={() => navigation.goBack()}>
           <Icon name='arrow-left' size={30} color={COLORS.black} />
@@ -18,9 +18,9 @@ const PayoutMoneytrans = ({ navigation }) => {
         <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Money Transaction</Text>
       </View>
       <View>
-        <ScrollView contentContainerStyle={{ paddingBottom:600 }} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 350, }} showsVerticalScrollIndicator={false}>
 
-          <View style={{flex:1}}>
+          <View style={{ flex: 1 }}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <HomeCartView name={'Used Balance'} img={require('../assets/main2.png')} balance={'1655444000.20'} />
               <HomeCartView name={'Remaining Balance'} img={require('../assets/main3.png')} balance={'1111000.00'} />
@@ -29,18 +29,21 @@ const PayoutMoneytrans = ({ navigation }) => {
           </View>
 
 
-          <View style={{ marginTop: 20, flexDirection: 'row', height: '4%', alignSelf: 'center' }}>
-            <TouchableOpacity onPress={() => { navigation.navigate('BankBeneficiery') }} style={{ backgroundColor: '#00bfff', borderRadius: 10, alignItems: 'center', height: '100%', width: '45%', justifyContent: 'center' }}>
+          <View style={{ marginTop: 20, flexDirection: 'row', marginVertical: 10, alignSelf: 'center' }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('BankBeneficiery') }} style={{ backgroundColor: '#00bfff', borderRadius: 10, alignItems: 'center', width: '45%', justifyContent: 'center', paddingVertical: 15 }}>
               <Text style={{ fontSize: 14, fontWeight: '400', color: COLORS.white }}>Add Bank Beneficiery</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('CreditCardBeneficiery') }} style={{ marginLeft: 5, backgroundColor: '#CF9FFF', borderRadius: 10, alignItems: 'center', height: '100%', width: '45%', justifyContent: 'center' }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('CreditCardBeneficiery') }} style={{ marginLeft: 5, backgroundColor: '#CF9FFF', borderRadius: 10, alignItems: 'center', paddingVertical: 15, width: '45%', justifyContent: 'center' }}>
               <Text style={{ fontSize: 14, fontWeight: '400', color: COLORS.white }}>Add Credit Card Beneficiery</Text>
             </TouchableOpacity>
           </View>
-
-
-          <View style={{flex:1, width: '90%', alignSelf: 'center' }}>
-            <Text style={{ marginTop: 10, fontSize: 24, color: '#000', fontWeight: '600' }}>Filter</Text>
+          <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center', marginVertical: 13, justifyContent: 'space-between', }}>
+            <Text style={{ fontSize: 24, color: '#000', fontWeight: '600', }}>Filter</Text>
+            <TouchableOpacity onPress={() => setFilter(!filter)}>
+              {filter == true ? <Icon name='chevron-down' size={30} color={'#000'} /> : <Icon name='chevron-right' size={30} color={'#000'} />}
+            </TouchableOpacity>
+          </View>
+          {filter == true ? <View style={{ width: '90%', alignSelf: 'center', }}>
             <Inputtext name={'Baneficiary Name'} place={'Enter Name'} />
             <Inputtext name={'Baneficiary Account'} place={'Account Number'} />
             <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', marginTop: 20 }}>
@@ -52,18 +55,19 @@ const PayoutMoneytrans = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
+          </View> : null}
+
+
+
+
+          <View style={{ flex: 1 }}>
+            <Payoutbeneficierycart name='send money' />
+            <Payoutbeneficierycart name='send money' />
+            <Payoutbeneficierycart name='send money' />
+            <Payoutbeneficierycart name='send money' />
+            <Payoutbeneficierycart name='send money' />
+            <Payoutbeneficierycart name='send money' />
           </View>
-
-
-
-
-          <Payoutbeneficierycart name='send money' />
-          <Payoutbeneficierycart name='send money'/>
-          <Payoutbeneficierycart name='send money'/>
-          <Payoutbeneficierycart name='send money'/>
-          <Payoutbeneficierycart name='send money'/>
-          <Payoutbeneficierycart name='send money'/>
-          
 
 
 

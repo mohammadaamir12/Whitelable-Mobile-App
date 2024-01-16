@@ -7,7 +7,7 @@ const Historycom = ({nam,amt,imgg,sub,dat}) => {
   return (
     <View style={{flex:1,marginStart:16,marginTop:10}}>
       <View style={{flexDirection:'row',alignItems:'center'}}>
-      <Image source={imgg} style={{height:50,width:50,borderRadius:8}} />
+      <Image source={imgg} style={{height:45,width:45,borderRadius:8}} />
       <View style={{left:10,flex:1}}>
       <Text style={{color:'#000',fontSize:14,fontWeight:'700'}}>{nam}</Text>
       <Text style={{color:'#222222',fontSize:12,fontWeight:'400'}}>{sub}</Text>
