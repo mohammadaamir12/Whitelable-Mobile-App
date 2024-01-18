@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, FlatList,ActivityIndicator } from 'react-native'
 import React, { useState,useEffect } from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
@@ -8,10 +8,12 @@ import DropdownSelect from '../Components/DropdownSelect'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { Base_Url, payReport } from '../Config/config'
+import Toast from 'react-native-tiny-toast'
 
 const PayoutReoprt = ({ navigation }) => {
   const [filter, setFilter] = useState(false)
   const [payoutReport,setPayoutReport]=useState([])
+  const [loader,setLoader]=useState(false)
   useEffect(()=>{
     report();
     
@@ -31,16 +33,30 @@ const PayoutReoprt = ({ navigation }) => {
             if (response.data.status == 'SUCCESS') {
              console.log('new',response.data.allreports)
              setPayoutReport(response.data.allreports)
+             setLoader(true)
                 // console.log('sdddd',userData);
                 // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
             } 
+            else {
+              Toast.show('Failed', {
+                position: Toast.position.center,
+                containerStyle: {},
+                textStyle: {},
+              })
+            }
         }).catch(function (error) {
-           
+          Toast.show('Request failed', {
+            position: Toast.position.center,
+            containerStyle: {},
+            textStyle: {},
+          })
           })
   }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      {loader==false?<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }} >
+                <ActivityIndicator size="large" color={COLORS.main} />
+            </View>:<ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.white, marginTop: 10, flexDirection: 'row' }}>
           <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', right: 60 }} onPress={() => navigation.goBack()}>
             <Icon name='arrow-left' size={30} color={COLORS.black} />
@@ -74,6 +90,7 @@ const PayoutReoprt = ({ navigation }) => {
        
         <View>
         <FlatList
+        scrollEnabled={false}
          showsVerticalScrollIndicator={false}
         data={payoutReport}
         renderItem={({item})=>
@@ -97,7 +114,8 @@ const PayoutReoprt = ({ navigation }) => {
           <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} /> */}
 
         </View>
-      </ScrollView>
+      </ScrollView>}
+      
     </View>
   )
 }

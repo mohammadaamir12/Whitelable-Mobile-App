@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar, BackHandler, Alert } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StatusBar, ScrollView, BackHandler, Alert, FlatList } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -11,15 +11,19 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Base_Url, dashboard, recentTransaction } from '../Config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { FlatList } from 'react-native-gesture-handler';
+import Toast from 'react-native-tiny-toast'
+import LinearGradient from 'react-native-linear-gradient';
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
 
 
 
+const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
 const Home = ({ navigation }) => {
   const [isConnected, setIsConnected] = useState(false);
-  const [dashData,setDashData]=useState([]);
-  const [cus_amt,setCus_amt]=useState(0);
-  const [orderid,setOrderid]=useState([])
+  const [dashData, setDashData] = useState([]);
+  const [cus_amt, setCus_amt] = useState(0);
+  const [orderid, setOrderid] = useState([])
+  const [loader,setLoader]=useState(false)
   // useEffect(() => {
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to exit?", [
@@ -46,63 +50,199 @@ const Home = ({ navigation }) => {
       };
     }, [])
   );
-  useEffect(()=>{
-   call();
+  useEffect(() => {
+    call();
+  }, [])
 
-  },[])
-
-  const call =async()=>{
+  const call = async () => {
+    try {
       const token = await AsyncStorage.getItem('cus_token');
       const id = await AsyncStorage.getItem('cus_id');
       // console.log("token",token);
       // console.log("id",id);
-    axios.get(Base_Url+dashboard, {
-      headers: {
-      'Content-Type':'application/json',
-      'token':token,
-      'cus_id':id
-    }
-  })
-      .then(function (response) {
-
-          if (response.data.status == 'SUCCESS') {
-             setDashData(response.data)
-             setCus_amt(response.data.tranaction.payout_transaction[0].amount)
-              // console.log('sdddd',userData);
-              // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
-          } 
-      }).catch(function (error) {
-         
-        })
-        axios.get(Base_Url+recentTransaction, {
-          headers: {
-          'Content-Type':'application/json',
-          'token':token,
-          'cus_id':id
+      axios.get(Base_Url + dashboard, {
+        headers: {
+          'Content-Type': 'application/json',
+          'token': token,
+          'cus_id': id
         }
       })
-          .then(function (response) {
-    
-              if (response.data.status == 'SUCCESS') {
-                 console.log('recent',response.data.allreports[0].txn_order_id);
-                 setOrderid(response.data.allreports)
-                 
-                  // console.log('sdddd',userData);
-                  // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
-              } 
-          }).catch(function (error) {
-             
+        .then(function (response) {
+
+          if (response.data.status == 'SUCCESS') {
+            setDashData(response.data)
+            setCus_amt(response.data.tranaction.payout_transaction[0].amount)
+            // console.log('sdddd',userData);
+            // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
+          }
+          else {
+            Toast.show('Failed', {
+              position: Toast.position.center,
+              containerStyle: {},
+              textStyle: {},
             })
-      
+          }
+        }).catch(function (error) {
+          Toast.show('Request failed', {
+            position: Toast.position.center,
+            containerStyle: {},
+            textStyle: {},
+          })
+        })
+      axios.get(Base_Url + recentTransaction, {
+        headers: {
+          'Content-Type': 'application/json',
+          'token': token,
+          'cus_id': id
+        }
+      })
+        .then(function (response) {
+
+          if (response.data.status == 'SUCCESS') {
+            setOrderid(response.data.allreports)
+            setLoader(true)
+            // console.log('sdddd',userData);
+            // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
+          }
+          else {
+            Toast.show('Failed', {
+              position: Toast.position.center,
+              containerStyle: {},
+              textStyle: {},
+            })
+          }
+        }).catch(function (error) {
+          Toast.show('Request failed', {
+            position: Toast.position.center,
+            containerStyle: {},
+            textStyle: {},
+          })
+        })
+    }
+    catch (error) {
+      console.error('API call error:', error.message);
+    } finally {
+
+    }
+
+
   }
 
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar backgroundColor={COLORS.white} />
-      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false}>
+{loader==false?<View style={{ height: '100%', width: '100%', }}>
+                <View style={{ flexDirection: 'row', height: '15%', alignItems: 'center' }}>
+                    <ShimmerPlaceholder
+                        style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 10 }}
+                    >
+                    </ShimmerPlaceholder>
+                    <View style={{ justifyContent: 'center' }}>
+                        <ShimmerPlaceholder
+                            style={{ width: '40%', height: '20%', borderRadius: 5, bottom: 2.5 }}
+                        >
+
+                        </ShimmerPlaceholder>
+                        <ShimmerPlaceholder style={{ width: '50%', height: '20%', borderRadius: 5, top: 2.5 }}>
+
+                        </ShimmerPlaceholder>
+                    </View>
+                    <ShimmerPlaceholder
+                        style={{ width: '10%', height: '35%', borderRadius: 8, left: 40 }}>
+
+                    </ShimmerPlaceholder>
+                </View>
+                <View style={{ height: '25%' }}>
+                    <ShimmerPlaceholder
+                        style={{
+                            width: '80%',
+                            height: '85%',
+                            borderRadius: 8,
+                            left: 15,
+                        }}>
+                    </ShimmerPlaceholder>
+                </View>
+                <View style={{height:'20%'}}>
+                    <ShimmerPlaceholder
+                        style={{ width: '20%', height: '15%', margin: 15, borderRadius: 5 }}>
+                    </ShimmerPlaceholder>
+                    <View style={{ flexDirection: 'row',height:'70%' }}>
+                        <View style={{ width: '30%', height: '80%' }}>
+                            <ShimmerPlaceholder style={{
+                                height: '95%',
+                                width: '75%',
+                                margin: 15,
+                                borderRadius: 8
+                            }}></ShimmerPlaceholder>
+                        </View>
+                        <View style={{ width: '30%', height: '80%' }}>
+                            <ShimmerPlaceholder style={{
+                                height: '95%',
+                                width: '75%',
+                                margin: 15,
+                                borderRadius: 8
+                            }}></ShimmerPlaceholder>
+                        </View>
+                        <View style={{ width: '30%', height: '80%' }}>
+                            <ShimmerPlaceholder style={{
+                                height: '95%',
+                                width: '75%',
+                                margin: 15,
+                                borderRadius: 8
+                            }}></ShimmerPlaceholder>
+                        </View>
+
+                    </View>
+                    
+                </View>
+                <View style={{height:'5%',}}>
+                    <ShimmerPlaceholder style={{ width: '30%', height: '55%',margin:15,borderRadius:5 }}></ShimmerPlaceholder>
+                </View>
+                <View style={{ flexDirection: 'row', height: '15%', alignItems: 'center' }}>
+                    <ShimmerPlaceholder
+                        style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 10 }}
+                    >
+                    </ShimmerPlaceholder>
+                    <View style={{ justifyContent: 'center' }}>
+                        <ShimmerPlaceholder
+                            style={{ width: '90%', height: '18%', borderRadius: 5, bottom: 2.5 }}
+                        >
+
+                        </ShimmerPlaceholder>
+                        <ShimmerPlaceholder style={{ width: '40%', height: '18%', borderRadius: 5, top: 2.5 }}>
+
+                        </ShimmerPlaceholder>
+                    </View>
+                    <ShimmerPlaceholder
+                        style={{ width: '15%', height: '25%', borderRadius: 8, left: 40 }}>
+
+                    </ShimmerPlaceholder>
+                </View>
+                <View style={{ flexDirection: 'row', height: '15%', alignItems: 'center' }}>
+                    <ShimmerPlaceholder
+                        style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 10 }}
+                    >
+                    </ShimmerPlaceholder>
+                    <View style={{ justifyContent: 'center' }}>
+                        <ShimmerPlaceholder
+                            style={{ width: '90%', height: '18%', borderRadius: 5, bottom: 2.5 }}
+                        >
+
+                        </ShimmerPlaceholder>
+                        <ShimmerPlaceholder style={{ width: '40%', height: '18%', borderRadius: 5, top: 2.5 }}>
+
+                        </ShimmerPlaceholder>
+                    </View>
+                    <ShimmerPlaceholder
+                        style={{ width: '15%', height: '25%', borderRadius: 8, left: 40 }}>
+
+                    </ShimmerPlaceholder>
+                </View>
+                
+            </View>:<ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false}>
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 14, alignItems: 'center' }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity activeOpacity={0.9} onPress={() => { navigation.openDrawer() }}>
               <Image style={{ height: hp('8%'), width: wp('16%'), }} source={require('../assets/man.png')} />
             </TouchableOpacity>
@@ -155,11 +295,12 @@ const Home = ({ navigation }) => {
           }}>View all</Text>
         </View>
         <FlatList
-         showsVerticalScrollIndicator={false}
-        data={orderid}
-        renderItem={({item})=>
-        <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={'Subscription'} dat={item.txn_date} />
-        }
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          data={orderid}
+          renderItem={({ item }) =>
+            <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={'Subscription'} dat={item.txn_date} />
+          }
         />
         {/* <Historycom nam={'aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
         <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
@@ -170,7 +311,8 @@ const Home = ({ navigation }) => {
         <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
         <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
         <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} /> */}
-      </ScrollView>
+      </ScrollView>}
+      
 
       <InternetAvl isConnected={isConnected} setIsConnected={setIsConnected} />
 

@@ -6,7 +6,9 @@ import axios from "axios";
 import Toast from 'react-native-tiny-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Base_Url, login } from '../Config/config';
-
+import LinearGradient from 'react-native-linear-gradient';
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
+const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
 
 
 const Login = ({ navigation }) => {
@@ -28,14 +30,14 @@ const Login = ({ navigation }) => {
         // console.log(value);
         isLoading(false)
         if (value == '1') {
-            
-           
+
+
             Toast.showSuccess('Success')
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'HomeScreen' }],
             });
-            
+
         }
         else {
             // isLoading(false)
@@ -49,7 +51,7 @@ const Login = ({ navigation }) => {
     const signin = async () => {
         isLoading(true)
         // console.log(`${Base_Url}/user/${userId}`);
-        axios.post(Base_Url+login, {
+        axios.post(Base_Url + login, {
             username: phone,
             password: pass,
         })
@@ -64,7 +66,7 @@ const Login = ({ navigation }) => {
                     // console.log('sdddd',userData);
                     // console.log("response",response);
                     loginprofile();
-                    
+
                 }
                 else if (response.data.status == 'FAIL') {
                     Toast.showSuccess('Failed')
@@ -72,13 +74,13 @@ const Login = ({ navigation }) => {
                     setPhone('')
                     setPass('')
                 }
-               
+
             }).catch(function (error) {
                 Toast.showSuccess('Server Error')
                 isLoading(false)
                 setPhone('')
                 setPass('')
-              })
+            })
 
 
     }
@@ -97,13 +99,14 @@ const Login = ({ navigation }) => {
     }
 
     const submit = () => {
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         if (!phone) {
             setPhoneErr(true)
         }
         if (!pass) {
             setPassErr(true)
         }
-        if (phone) {
+        if (phone && format.test(phone)) {
             setPhoneErr(false)
         }
         if (pass) {
@@ -116,6 +119,7 @@ const Login = ({ navigation }) => {
     }
     return (
         <View style={{ flex: 1, alignItems: 'center', backgroundColor: COLORS.white }}>
+            
             {loading == true ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }} >
                 <ActivityIndicator size="large" color={COLORS.main} />
             </View> : <View style={{ width: Sizes.width * 0.90, marginTop: Sizes.height * 0.10 }}>

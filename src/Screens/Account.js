@@ -50,18 +50,18 @@ const Account = ({ navigation }) => {
             style={{
               backgroundColor: '#B8EE00',
               height: hp('10%'),
-              width: wp('20%'),
+              width: wp('21%'),
               borderRadius: 40,
               alignItems: 'center',
               justifyContent: 'center',
               marginTop: 20
             }}>
             <Image style={{
-              height: hp('9.5%'),
-              width: wp('19.5%'),
+              height: hp('11%'),
+              width: wp('20%'),
               borderRadius: 40
             }}
-              source={require('../assets/handsome.jpg')} />
+              source={require('../assets/man.png')} />
           </View>
           <Text
             style={{
