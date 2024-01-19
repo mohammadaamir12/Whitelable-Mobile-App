@@ -24,6 +24,7 @@ const Home = ({ navigation }) => {
   const [cus_amt, setCus_amt] = useState(0);
   const [orderid, setOrderid] = useState([])
   const [loader,setLoader]=useState(false)
+  const [recent,setRecent]=useState(false)
   // useEffect(() => {
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to exit?", [
@@ -103,6 +104,7 @@ const Home = ({ navigation }) => {
           if (response.data.status == 'SUCCESS') {
             setOrderid(response.data.allreports)
             setLoader(true)
+            setRecent(false)
             // console.log('sdddd',userData);
             // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
           }
@@ -115,6 +117,7 @@ const Home = ({ navigation }) => {
             })
           }
         }).catch(function (error) {
+          setRecent(true)
           Toast.show('No recent transaction', {
             position: Toast.position.center,
             containerStyle: {},
@@ -295,16 +298,17 @@ const Home = ({ navigation }) => {
             right: 25,
             color: '#34baeb',
             fontSize: 14
-          }}>View all</Text> */} 
+          }}>View all</Text> */}
         </View>
-        <FlatList
+        {recent==true?<View style={{alignItems:'center',justifyContent:'center',height:200}}><Text style={{color:COLORS.main,fontSize:20,fontWeight:'500',elevation:2}}>No Recent Transaction</Text></View>: <FlatList
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
           data={orderid}
           renderItem={({ item }) =>
             <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={'Subscription'} dat={item.txn_date} />
           }
-        />
+        />}
+       
         {/* <Historycom nam={'aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
         <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
         <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
