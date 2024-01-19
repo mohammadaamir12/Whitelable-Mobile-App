@@ -291,11 +291,11 @@ const Home = ({ navigation }) => {
           }}>
             Recent Transactions
           </Text>
-          <Text style={{
+          {/* <Text style={{
             right: 25,
             color: '#34baeb',
             fontSize: 14
-          }}>View all</Text>
+          }}>View all</Text> */} 
         </View>
         <FlatList
           scrollEnabled={false}
