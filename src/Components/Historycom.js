@@ -5,7 +5,7 @@ import { COLORS } from '../Colors/Colors'
 const Historycom = ({nam,amt,imgg,sub,dat}) => {
   
   return (
-    <View style={{flex:1,marginStart:16,marginTop:10}}>
+    <View style={{flex:1,marginStart:16,marginVertical:5}}>
       <View style={{flexDirection:'row',alignItems:'center'}}>
       <Image source={imgg} style={{height:45,width:45,borderRadius:8}} />
       <View style={{left:10,flex:1}}>

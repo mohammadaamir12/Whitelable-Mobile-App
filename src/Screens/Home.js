@@ -58,8 +58,8 @@ const Home = ({ navigation }) => {
     try {
       const token = await AsyncStorage.getItem('cus_token');
       const id = await AsyncStorage.getItem('cus_id');
-      // console.log("token",token);
-      // console.log("id",id);
+      console.log("token",token);
+      console.log("id",id);
       axios.get(Base_Url + dashboard, {
         headers: {
           'Content-Type': 'application/json',
@@ -72,10 +72,12 @@ const Home = ({ navigation }) => {
           if (response.data.status == 'SUCCESS') {
             setDashData(response.data)
             setCus_amt(response.data.tranaction.payout_transaction[0].amount)
+            setLoader(true)
             // console.log('sdddd',userData);
             // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
           }
           else {
+            console.log(response.message);
             Toast.show('Failed', {
               position: Toast.position.center,
               containerStyle: {},
@@ -105,6 +107,7 @@ const Home = ({ navigation }) => {
             // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
           }
           else {
+            console.log(response.message);
             Toast.show('Failed', {
               position: Toast.position.center,
               containerStyle: {},
@@ -112,7 +115,7 @@ const Home = ({ navigation }) => {
             })
           }
         }).catch(function (error) {
-          Toast.show('Request failed', {
+          Toast.show('No recent transaction', {
             position: Toast.position.center,
             containerStyle: {},
             textStyle: {},
@@ -149,7 +152,7 @@ const Home = ({ navigation }) => {
                         </ShimmerPlaceholder>
                     </View>
                     <ShimmerPlaceholder
-                        style={{ width: '10%', height: '35%', borderRadius: 8, left: 40 }}>
+                        style={{ width: '10%', height: '35%', borderRadius: 8, left:'25%' }}>
 
                     </ShimmerPlaceholder>
                 </View>
@@ -215,7 +218,7 @@ const Home = ({ navigation }) => {
                         </ShimmerPlaceholder>
                     </View>
                     <ShimmerPlaceholder
-                        style={{ width: '15%', height: '25%', borderRadius: 8, left: 40 }}>
+                        style={{ width: '15%', height: '25%', borderRadius: 8, left:'20%' }}>
 
                     </ShimmerPlaceholder>
                 </View>
@@ -235,7 +238,7 @@ const Home = ({ navigation }) => {
                         </ShimmerPlaceholder>
                     </View>
                     <ShimmerPlaceholder
-                        style={{ width: '15%', height: '25%', borderRadius: 8, left: 40 }}>
+                        style={{ width: '15%', height: '25%', borderRadius: 8, left:'20%' }}>
 
                     </ShimmerPlaceholder>
                 </View>

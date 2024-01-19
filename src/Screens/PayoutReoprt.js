@@ -31,7 +31,6 @@ const PayoutReoprt = ({ navigation }) => {
         .then(function (response) {
   
             if (response.data.status == 'SUCCESS') {
-             console.log('new',response.data.allreports)
              setPayoutReport(response.data.allreports)
              setLoader(true)
                 // console.log('sdddd',userData);
