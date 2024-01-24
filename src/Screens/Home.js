@@ -8,7 +8,7 @@ import SendandReceivebtn from '../Components/SendandReceivebtn';
 import Historycom from '../Components/Historycom';
 import InternetAvl from './InternetAvl';
 import { useFocusEffect } from '@react-navigation/native';
-import { Base_Url, dashboard, recentTransaction } from '../Config/config';
+import { Base_Url, UserProfile, dashboard, recentTransaction } from '../Config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-tiny-toast'
@@ -25,6 +25,7 @@ const Home = ({ navigation }) => {
   const [cus_amt2, setCus_amt2] = useState(0);
   const [orderid, setOrderid] = useState([])
   const [loader, setLoader] = useState(false)
+  const [profileName,setProfileName]=useState('')
   // useEffect(() => {
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to exit?", [
@@ -52,8 +53,45 @@ const Home = ({ navigation }) => {
     }, [])
   );
   useEffect(() => {
+   user();
+  }, [])
+  useEffect(() => {
     call();
   }, [dashData])
+
+  const user=async()=>{
+    const token = await AsyncStorage.getItem('cus_token');
+    const id = await AsyncStorage.getItem('cus_id');
+    axios.get(Base_Url + UserProfile, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+        'cus_id': id
+      }
+    })
+      .then(function (response) {
+
+        if (response.data.status == 'SUCCESS') {
+          setProfileName(response.data.userData.cus_name)
+          // console.log('sdddd',userData);
+          // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
+        }
+        else {
+          Toast.show('Failed', {
+            position: Toast.position.center,
+            containerStyle: {},
+            textStyle: {},
+          })
+        }
+      }).catch(function (error) {
+        console.log(error.message)
+        Toast.show('No recent transaction', {
+          position: Toast.position.center,
+          containerStyle: {},
+          textStyle: {},
+        })
+      })
+  }
 
   const call = async () => {
 
@@ -94,6 +132,8 @@ const Home = ({ navigation }) => {
           textStyle: {},
         })
       })
+
+     
     axios.get(Base_Url + recentTransaction, {
       headers: {
         'Content-Type': 'application/json',
@@ -250,8 +290,8 @@ const Home = ({ navigation }) => {
               <Image style={{ height: hp('8%'), width: wp('16%'), }} source={require('../assets/man.png')} />
             </TouchableOpacity>
             <View style={{ marginStart: 10 }}>
-              <Text style={{ color: COLORS.main, fontSize: hp('2%'), fontWeight: '400' }}>Welcome</Text>
-              <Text style={{ color: '#000', fontSize: hp('2%'), fontWeight: '700' }}>Abhishek Jajoria</Text>
+              <Text style={{ color: COLORS.main, fontSize: hp('2%'), fontWeight: '400' }}>Welcome !</Text>
+              <Text style={{ color: '#000', fontSize: hp('2%'), fontWeight: '700' }}>{profileName}</Text>
             </View>
           </View>
           <View>
@@ -260,8 +300,8 @@ const Home = ({ navigation }) => {
         </View>
         <View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <HomeCartView name={'Available balance'} img={require('../assets/main2.png')} balance={cus_amt2} />
-            <HomeCartView name={'Unsettle balance'} img={require('../assets/main3.png')} balance={cus_amt} />
+            <HomeCartView cusName={profileName} name={'Available balance'} img={require('../assets/main2.png')} balance={cus_amt2} />
+            <HomeCartView cusName={profileName} name={'Unsettle balance'} img={require('../assets/main3.png')} balance={cus_amt} />
             <HomeCartView name={'Pending balance'} img={require('../assets/main1.png')} balance={'1000.80'} />
           </ScrollView>
         </View>

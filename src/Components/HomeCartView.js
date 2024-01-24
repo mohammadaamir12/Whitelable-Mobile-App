@@ -9,7 +9,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 const HomeCartView = ({
     img,
     name,
-    balance
+    balance,
+    cusName
 }) => {
     return (
         <View
@@ -59,7 +60,7 @@ const HomeCartView = ({
                                 fontSize: 14,
                                 fontWeight: '500'
                             }}>
-                            Abhishek Jajoria
+                            {cusName}
                         </Text>
                     </View>
                 </View>

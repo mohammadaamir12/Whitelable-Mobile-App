@@ -20,6 +20,7 @@ const Login = ({ navigation }) => {
     const [passErr, setPassErr] = useState(false);
     const [loading, isLoading] = useState(false);
     const [userData, setUserData] = useState([]);
+    
 
     // useEffect(() => {
     //     console.log('sdddd', userData); // Log the updated state
@@ -81,6 +82,7 @@ const Login = ({ navigation }) => {
                 setPhone('')
                 setPass('')
             })
+
 
 
     }

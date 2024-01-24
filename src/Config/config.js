@@ -15,6 +15,8 @@ export const payReport="report/payout"
 export const WallettopupReport="report/walletTopup"
  // Get TopUp -> TopUpRequest
 export const TopupRequest="TopupRequest"
+// user profile
+export const UserProfile="user"
 
 
 
