@@ -1,23 +1,31 @@
 import { View, Text, Image, TouchableOpacity, StatusBar } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import Iconss from 'react-native-vector-icons/Octicons'
 import Iconsss from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 
 const DrawerContent = ({navigation}) => {
     const [submenu,setSubmenu]=useState(false)
+    const [profilename,setProfilename]=useState('')
+useEffect(()=>{
+    get();
+})
+    const get=async()=>{
+   const get=await AsyncStorage.getItem('profilename');
+   setProfilename(get)
+    }
     return (
         <View style={{flex: 1, alignItems: 'center'}}>
             <View style={{ backgroundColor: '#B8EE00', height: 80, width: 80, borderRadius: 40, alignItems: 'center', justifyContent: 'center',marginTop:30 }}>
                 <Image style={{ height: 90, width: 90,}} source={require('../assets/man.png')} />
             </View>
             <View style={{marginTop:5}}>
-                <Text style={{ fontSize: 16, fontWeight: '700', color: COLORS.white }}>Abhishek Jajoria</Text>
+                <Text style={{ fontSize: 16, fontWeight: '700', color: COLORS.white,alignSelf:'center' }}>{profilename}</Text>
                 <TouchableOpacity onPress={()=>{
                 navigation.navigate('Account')
                 navigation.closeDrawer()

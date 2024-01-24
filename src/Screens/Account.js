@@ -1,13 +1,22 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import Menulist from '../Components/Menulist'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 const Account = ({ navigation }) => {
+  const [profilename,setProfilename]=useState('')
+  useEffect(()=>{
+    get();
+})
+    const get=async()=>{
+   const get=await AsyncStorage.getItem('profilename');
+   setProfilename(get)
+    }
   return (
 
     <View style={{ 
@@ -70,7 +79,7 @@ const Account = ({ navigation }) => {
               color: COLORS.white,
               marginTop: 15
             }}>
-            Abhishek Jajoria
+            {profilename}
           </Text>
         </View>
 

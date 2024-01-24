@@ -73,6 +73,7 @@ const Home = ({ navigation }) => {
 
         if (response.data.status == 'SUCCESS') {
           setProfileName(response.data.userData.cus_name)
+          AsyncStorage.setItem('profilename', response.data.userData.cus_name)
           // console.log('sdddd',userData);
           // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
         }

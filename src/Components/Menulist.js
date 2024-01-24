@@ -18,6 +18,7 @@ const Menulist = ({ naam, icon }) => {
     AsyncStorage.removeItem('profile')
     AsyncStorage.removeItem('cus_id')
     AsyncStorage.removeItem('cus_token')
+    AsyncStorage.removeItem('profilename');
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }]
