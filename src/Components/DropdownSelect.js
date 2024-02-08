@@ -2,27 +2,20 @@ import { View, Text } from 'react-native'
 import React,{useState} from 'react'
 import { SelectList } from 'react-native-dropdown-select-list'
 
-const data = [
-    {key:'1', value:'Mobiles'},
-    {key:'2', value:'Appliances'},
-    {key:'3', value:'Cameras'},
-    {key:'4', value:'Computers'},
-    {key:'5', value:'Vegetables'},
-    {key:'6', value:'Diary Products'},
-    {key:'7', value:'Drinks'},
-]
-const DropdownSelect = ({sty,nam}) => {
-    const [selected, setSelected] = useState('')
+
+const DropdownSelect = ({sty,nam,dropdown,showContent,dropselect,setDropselect}) => {
+    
   return (
     <View style={{marginTop:10}}>
       <Text style={{color:'grey'}}>{nam}</Text>
       <SelectList 
-        setSelected={(val) => setSelected(val)} 
-        data={data} 
+        save={dropselect}
+        setSelected={(val) => setDropselect(val)} 
+        data={dropdown} 
         search={false}
-        inputStyles={{fontSize:17,}}
+        inputStyles={{fontSize:17,color:'#000'}}
         boxStyles={{marginTop:sty}}
-        placeholder='Select Bank'
+        placeholder={dropselect==null?showContent:dropselect}
     />
     </View>
   )

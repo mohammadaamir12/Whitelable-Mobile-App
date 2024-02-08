@@ -1,25 +1,69 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React,{useEffect,useState} from 'react'
+import React,{createContext, useEffect,useState} from 'react'
 import { COLORS } from '../Colors/Colors'
 import Icon from 'react-native-vector-icons/Feather'
 import Menulist from '../Components/Menulist'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Base_Url, UserProfile } from '../Config/config'
+import axios from 'axios';
+import Toast from 'react-native-tiny-toast'
 
 
 
 const Account = ({ navigation }) => {
   const [profilename,setProfilename]=useState('')
+  const [profiledata,setProfiledata]=useState('')
   useEffect(()=>{
     get();
-})
+},[])
+useEffect(()=>{
+  profilecall();
+},[])
+const profilecall=async()=>{
+  const token = await AsyncStorage.getItem('cus_token');
+  const id = await AsyncStorage.getItem('cus_id');
+  // console.log("token", token);
+  // console.log("id", id);
+  axios.get(Base_Url + UserProfile, {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': token,
+      'cus_id': id
+    }
+  })
+    .then(function (response) {
+
+      if (response.data.status == 'SUCCESS') {
+     setProfiledata(response.data)
+       
+      }
+      else {
+
+        Toast.show('Failed', {
+          position: Toast.position.center,
+          containerStyle: {},
+          textStyle: {},
+        })
+      }
+    }).catch(function (error) {
+      Toast.show('Request failed', {
+        position: Toast.position.center,
+        containerStyle: {},
+        textStyle: {},
+      })
+    })
+
+}
+
     const get=async()=>{
    const get=await AsyncStorage.getItem('profilename');
    setProfilename(get)
     }
+   
   return (
 
-    <View style={{ 
+<View style={{ 
       flex: 1,
       backgroundColor: COLORS.white,
     }}>
@@ -55,7 +99,7 @@ const Account = ({ navigation }) => {
             }}>
             My Profile
           </Text>
-          <View
+          {/* <View
             style={{
               backgroundColor: '#B8EE00',
               height: hp('10%'),
@@ -64,20 +108,23 @@ const Account = ({ navigation }) => {
               alignItems: 'center',
               justifyContent: 'center',
               marginTop: 20
-            }}>
+            }}> */}
             <Image style={{
-              height: hp('11%'),
-              width: wp('20%'),
-              borderRadius: 40
+              height: hp('12%'),
+              width: wp('22%'),
+              borderRadius: 30,
+              alignItems:'center',
+              justifyContent:'center',
+              marginTop:8
             }}
-              source={require('../assets/man.png')} />
-          </View>
+              source={require('../assets/profileimg.png')} />
+          {/* </View> */}
           <Text
             style={{
               fontSize: 18,
               fontWeight: '700',
               color: COLORS.white,
-              marginTop: 15
+              marginTop: 8
             }}>
             {profilename}
           </Text>
@@ -86,6 +133,7 @@ const Account = ({ navigation }) => {
         <Menulist
           naam='Profile'
           icon='profile'
+          profiledetails={profiledata}
         />
         <Menulist
           naam='Bank Details'
@@ -111,6 +159,8 @@ const Account = ({ navigation }) => {
         />
       </ScrollView>
     </View>
+
+    
 
 
   )

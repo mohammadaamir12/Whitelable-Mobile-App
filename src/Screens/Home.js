@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, StatusBar, ScrollView, BackHandler, Alert, FlatList } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StatusBar, ScrollView, BackHandler, Alert, FlatList, RefreshControl, } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -14,18 +14,20 @@ import axios from 'axios';
 import Toast from 'react-native-tiny-toast'
 import LinearGradient from 'react-native-linear-gradient';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
-
-
+import Moment from 'moment';
 
 const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
 const Home = ({ navigation }) => {
   const [isConnected, setIsConnected] = useState(false);
-  const [dashData, setDashData] = useState([]);
+  const [dashData, setDashData] = useState('');
   const [cus_amt, setCus_amt] = useState(0);
   const [cus_amt2, setCus_amt2] = useState(0);
+  const [cus_amt3, setCus_amt3] = useState(0);
   const [orderid, setOrderid] = useState([])
+  const [date, setDate] = useState('')
   const [loader, setLoader] = useState(false)
-  const [profileName,setProfileName]=useState('')
+  const [profileName, setProfileName] = useState('')
+  const [refreshing, setRefreshing] = useState(false);
   // useEffect(() => {
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to exit?", [
@@ -46,6 +48,7 @@ const Home = ({ navigation }) => {
   // }, [])
   useFocusEffect(
     useCallback(() => {
+      onRefresh();
       BackHandler.addEventListener('hardwareBackPress', backAction);
       return () => {
         BackHandler.removeEventListener('hardwareBackPress', backAction);
@@ -53,13 +56,13 @@ const Home = ({ navigation }) => {
     }, [])
   );
   useEffect(() => {
-   user();
+    user();
   }, [])
   useEffect(() => {
     call();
-  }, [dashData])
+  }, [])
 
-  const user=async()=>{
+  const user = async () => {
     const token = await AsyncStorage.getItem('cus_token');
     const id = await AsyncStorage.getItem('cus_id');
     axios.get(Base_Url + UserProfile, {
@@ -95,14 +98,16 @@ const Home = ({ navigation }) => {
   }
 
   const call = async () => {
-
+    // setRefreshing(true)
     const token = await AsyncStorage.getItem('cus_token');
     const id = await AsyncStorage.getItem('cus_id');
-    // console.log("token", token);
-    // console.log("id", id);
+    console.log("token", token);
+    console.log("id", id);
+
     axios.get(Base_Url + dashboard, {
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
         'token': token,
         'cus_id': id
       }
@@ -110,12 +115,14 @@ const Home = ({ navigation }) => {
       .then(function (response) {
 
         if (response.data.status == 'SUCCESS') {
-
-          setDashData(response.data)
-          setCus_amt(response.data.tranaction.payout_transaction[0].amount)
-          setCus_amt2(response.data.tranaction.pg_transaction[0].amount);
+          setDashData(response.data.balance)
+          setCus_amt(response.data.balance.unsettle)
+          setCus_amt2(response.data.balance.available);
+          setCus_amt3(response.data.balance.pending);
+          setRefreshing(false);
           setLoader(true)
-          // console.log('sdddd',userData);
+
+          // console.log(response);
           // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
         }
         else {
@@ -127,6 +134,7 @@ const Home = ({ navigation }) => {
           })
         }
       }).catch(function (error) {
+        // console.log(error.response.data)
         Toast.show('Request failed', {
           position: Toast.position.center,
           containerStyle: {},
@@ -134,10 +142,11 @@ const Home = ({ navigation }) => {
         })
       })
 
-     
+
     axios.get(Base_Url + recentTransaction, {
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
         'token': token,
         'cus_id': id
       }
@@ -147,6 +156,7 @@ const Home = ({ navigation }) => {
         if (response.data.status == 'SUCCESS') {
           // console.log(response.data)
           setOrderid(response.data.allreports)
+          setDate(Moment(response.data.allreports[0].txn_date).format('ll'))
           setLoader(true)
           // console.log('sdddd',userData);
           // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
@@ -166,12 +176,14 @@ const Home = ({ navigation }) => {
           textStyle: {},
         })
       })
-
-
-
-
   }
 
+
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    call();
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -179,7 +191,7 @@ const Home = ({ navigation }) => {
       {loader == false ? <View style={{ height: '100%', width: '100%', }}>
         <View style={{ flexDirection: 'row', height: '15%', alignItems: 'center' }}>
           <ShimmerPlaceholder
-            style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 10 }}
+            style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 15 }}
           >
           </ShimmerPlaceholder>
           <View style={{ justifyContent: 'center' }}>
@@ -203,7 +215,7 @@ const Home = ({ navigation }) => {
               width: '80%',
               height: '85%',
               borderRadius: 8,
-              left: 15,
+              marginLeft: 15,
             }}>
           </ShimmerPlaceholder>
         </View>
@@ -211,8 +223,8 @@ const Home = ({ navigation }) => {
           <ShimmerPlaceholder
             style={{ width: '20%', height: '15%', margin: 15, borderRadius: 5 }}>
           </ShimmerPlaceholder>
-          <View style={{ flexDirection: 'row', height: '70%' }}>
-            <View style={{ width: '30%', height: '80%' }}>
+          <View style={{ flexDirection: 'row', height: '70%', }}>
+            <View style={{ width: '30%', height: '80%', marginRight: 15 }}>
               <ShimmerPlaceholder style={{
                 height: '95%',
                 width: '75%',
@@ -220,7 +232,7 @@ const Home = ({ navigation }) => {
                 borderRadius: 8
               }}></ShimmerPlaceholder>
             </View>
-            <View style={{ width: '30%', height: '80%' }}>
+            <View style={{ width: '30%', height: '80%', marginRight: 15 }}>
               <ShimmerPlaceholder style={{
                 height: '95%',
                 width: '75%',
@@ -245,7 +257,7 @@ const Home = ({ navigation }) => {
         </View>
         <View style={{ flexDirection: 'row', height: '15%', alignItems: 'center' }}>
           <ShimmerPlaceholder
-            style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 10 }}
+            style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 15 }}
           >
           </ShimmerPlaceholder>
           <View style={{ justifyContent: 'center' }}>
@@ -265,7 +277,7 @@ const Home = ({ navigation }) => {
         </View>
         <View style={{ flexDirection: 'row', height: '15%', alignItems: 'center' }}>
           <ShimmerPlaceholder
-            style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 10 }}
+            style={{ width: '17%', height: '55%', borderRadius: 40, justifyContent: 'center', margin: 15 }}
           >
           </ShimmerPlaceholder>
           <View style={{ justifyContent: 'center' }}>
@@ -284,7 +296,9 @@ const Home = ({ navigation }) => {
           </ShimmerPlaceholder>
         </View>
 
-      </View> : <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false}>
+      </View> : <ScrollView refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      } style={{ marginTop: 10 }} showsVerticalScrollIndicator={false}>
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 14, alignItems: 'center' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity activeOpacity={0.9} onPress={() => { navigation.openDrawer() }}>
@@ -303,7 +317,7 @@ const Home = ({ navigation }) => {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <HomeCartView cusName={profileName} name={'Available balance'} img={require('../assets/main2.png')} balance={cus_amt2} />
             <HomeCartView cusName={profileName} name={'Unsettle balance'} img={require('../assets/main3.png')} balance={cus_amt} />
-            <HomeCartView name={'Pending balance'} img={require('../assets/main1.png')} balance={'1000.80'} />
+            <HomeCartView cusName={profileName} name={'Pending balance'} img={require('../assets/main1.png')} balance={cus_amt3} />
           </ScrollView>
         </View>
         <Text style={{
@@ -333,29 +347,29 @@ const Home = ({ navigation }) => {
             Recent Transactions
           </Text>
           {/* <Text style={{
-            right: 25,
-            color: '#34baeb',
-            fontSize: 14
-          }}>View all</Text> */}
+          right: 25,
+          color: '#34baeb',
+          fontSize: 14
+        }}>View all</Text> */}
         </View>
         <FlatList
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
           data={orderid}
           renderItem={({ item }) =>
-            <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={item.txn_type} dat={item.txn_date} />
+            <Historycom nam={profileName} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={item.txn_type} dat={date} />
           }
         />
 
         {/* <Historycom nam={'aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
-        <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
-        <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
-        <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
-        <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
-        <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
-        <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
-        <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
-        <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} /> */}
+      <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
+      <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
+      <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
+      <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
+      <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} />
+      <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />
+      <Historycom nam={'Rafat'} amt={'2240'} imgg={require('../assets/young.jpg')} sub={'Subscription'} dat={'12 nov 2023'} />
+      <Historycom nam={'Prashant (Tester)'} amt={'540.90'} imgg={require('../assets/younggirl.jpg')} sub={'Subscription'} dat={'11 jul 2023'} /> */}
       </ScrollView>}
 
 

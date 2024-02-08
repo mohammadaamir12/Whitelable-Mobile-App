@@ -21,16 +21,14 @@ const Botton = ({
     <TouchableOpacity onPress={() => icname == "arrows-turn-right" ? navigation.navigate('PayoutReoprt') :
       icname == "add-card" ? navigation.navigate('TopUpReport') :
         icname == "business-time" ? navigation.navigate('FundRequestReport') :
-          icname == "house-user" ? navigation.navigate('PGFundRequestReport') :
-            icname == "pager" ? navigation.navigate('POSFundRequestReport') :
-              icname == "chart-line" ? navigation.navigate('AllTransactionReport') :
-                icname == 'credit-card' ? navigation.navigate('VerifyCard') :
-                  icname == 'id-card-alt' ? navigation.navigate('VerifyPan') :
-                    icname == 'address-card' ? navigation.navigate('VerifyAdhar') :
-                      icname == 'home' ? navigation.navigate('VerifyAccount') :
-                        icname == 'money-bill' ? navigation.navigate('VerifyGST') :
-                          icname == 'qrcode-scan' ? navigation.navigate('VerifyUPI') :
-                            icname == 'auto-graph' ? navigation.navigate('VerificationReport') : null}
+          icname == "chart-line" ? navigation.navigate('AllTransactionReport') :
+            icname == 'credit-card' ? navigation.navigate('VerifyCard') :
+              icname == 'id-card-alt' ? navigation.navigate('VerifyPan') :
+                icname == 'address-card' ? navigation.navigate('VerifyAdhar') :
+                  icname == 'home' ? navigation.navigate('VerifyAccount') :
+                    icname == 'money-bill' ? navigation.navigate('VerifyGST') :
+                      icname == 'qrcode-scan' ? navigation.navigate('VerifyUPI') :
+                        icname == 'auto-graph' ? navigation.navigate('VerificationReport') : null}
       activeOpacity={0.7} style={{ marginTop: 15, backgroundColor: '#E8F1EE', flexDirection: 'row', alignItems: 'center', height: hp('9%'), borderRadius: 8 }}>
 
       <View style={{ borderRadius: 40, height: hp('60%'), width: wp('15%'), alignItems: 'center', justifyContent: 'center' }}>

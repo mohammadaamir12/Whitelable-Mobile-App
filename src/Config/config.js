@@ -17,6 +17,10 @@ export const WallettopupReport="report/walletTopup"
 export const TopupRequest="TopupRequest"
 // user profile
 export const UserProfile="user"
+// Post Fund Request
+export const FundRequest='insertfundrequest'
+// Post user bank details
+export const userBankDetails='updateUserBankDetails'
 
 
 

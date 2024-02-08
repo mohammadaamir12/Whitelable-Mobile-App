@@ -20,8 +20,6 @@ import PayoutSendMoney from '../Screens/PayoutSendMoney'
 import PayoutReoprt from '../Screens/PayoutReoprt'
 import TopUpReport from '../Screens/TopUpReport'
 import FundRequestReport from '../Screens/FundRequestReport'
-import PGFundRequestReport from '../Screens/PGFundRequestReport'
-import POSFundRequestReport from '../Screens/POSFundRequestReport'
 import AllTransactionReport from '../Screens/AllTransactionReport'
 import VerifyCard from '../Screens/VerifyCard'
 import VerifyPan from '../Screens/VerifyPan'
@@ -80,8 +78,6 @@ const Route = () => {
         <Stack.Screen name="PayoutReoprt" component={PayoutReoprt} />
         <Stack.Screen name="TopUpReport" component={TopUpReport} />
         <Stack.Screen name="FundRequestReport" component={FundRequestReport} />
-        <Stack.Screen name="PGFundRequestReport" component={PGFundRequestReport} />
-        <Stack.Screen name="POSFundRequestReport" component={POSFundRequestReport} />
         <Stack.Screen name="AllTransactionReport" component={AllTransactionReport} />
         <Stack.Screen name="VerifyCard" component={VerifyCard} />
         <Stack.Screen name="VerifyPan" component={VerifyPan} />

@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 
-const Menulist = ({ naam, icon }) => {
+const Menulist = ({ naam, icon,profiledetails }) => {
   const navigation = useNavigation();
   const logout = () => {
     AsyncStorage.removeItem('mess')
@@ -37,7 +37,7 @@ const Menulist = ({ naam, icon }) => {
       }}
       activeOpacity={0.7}
       onPress={() => {
-        icon == 'profile' ? navigation.navigate('AccountProfile') :
+        icon == 'profile' ? navigation.navigate('AccountProfile',{props:{profiledetails}}) :
         icon == 'bank' ? navigation.navigate('AccountBankDetails') :
           icon == 'location' ? navigation.navigate('AccountLocation') :
             icon == 'text-document' ? navigation.navigate('AccountDocumentDetails') :
@@ -47,6 +47,7 @@ const Menulist = ({ naam, icon }) => {
                     null
       }}
     >
+      {console.log('hi i am here',profiledetails)}
       <View
         style={{
           alignItems: 'center',

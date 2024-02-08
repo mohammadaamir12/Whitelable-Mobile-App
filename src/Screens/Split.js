@@ -14,10 +14,17 @@ const Split = () => {
   
   retrieveData = async () => {
     const value = await AsyncStorage.getItem('mess');
-    if (value !==null) {
+    const profile = await AsyncStorage.getItem('profile');
+    if (value !==null && profile==1) {
       navigation.reset({
         index: 0,
         routes: [{ name: 'HomeScreen' }],
+      });
+    }
+    else if(value !==null && profile==0){
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'OnboardProfile' }],
       });
     }
     else{

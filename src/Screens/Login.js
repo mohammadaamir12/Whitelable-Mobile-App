@@ -1,14 +1,12 @@
 import { ActivityIndicator, View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, } from 'react'
 import { COLORS, Sizes } from '../Colors/Colors'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from "axios";
 import Toast from 'react-native-tiny-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Base_Url, login } from '../Config/config';
-import LinearGradient from 'react-native-linear-gradient';
-import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
-const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
+
 
 
 const Login = ({ navigation }) => {
@@ -19,7 +17,7 @@ const Login = ({ navigation }) => {
     const [phoneerr, setPhoneErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
     const [loading, isLoading] = useState(false);
-    const [userData, setUserData] = useState([]);
+    const [userData, setUserData] = useState(null);
     
 
     // useEffect(() => {
@@ -45,8 +43,11 @@ const Login = ({ navigation }) => {
             Toast.showSuccess('Success')
             navigation.reset({
                 index: 0,
-                routes: [{ name: 'OnboardProfile' }],
+                routes: [{ name: 'OnboardProfile'
+            }],
             });
+            
+           
         }
     }
     const signin = async () => {
@@ -59,11 +60,12 @@ const Login = ({ navigation }) => {
             .then(function (response) {
 
                 if (response.data.status == 'SUCCESS') {
+                    setUserData(response.data.status)
                     AsyncStorage.setItem('mess', response.data.status)
                     AsyncStorage.setItem('profile', response.data.userData.profile_flag)
                     AsyncStorage.setItem('cus_id', response.data.userData.cus_id)
                     AsyncStorage.setItem('cus_token', response.data.userData.cus_token)
-                    setUserData(response.data)
+                    
                     // console.log('sdddd',userData);
                     // console.log("response",response);
                     loginprofile();
@@ -119,9 +121,9 @@ const Login = ({ navigation }) => {
         }
 
     }
+    
     return (
         <View style={{ flex: 1, alignItems: 'center', backgroundColor: COLORS.white }}>
-            
             {loading == true ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }} >
                 <ActivityIndicator size="large" color={COLORS.main} />
             </View> : <View style={{ width: Sizes.width * 0.90, marginTop: Sizes.height * 0.10 }}>

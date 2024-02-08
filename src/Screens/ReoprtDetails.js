@@ -18,8 +18,6 @@ const ReoprtDetails = ({navigation}) => {
     <Botton name={'Payout Report'} icname={'arrows-turn-right'} />
     <Botton name={'Wallet Top-Up Report'} icname={'add-card'} />
     <Botton name={'Fund Request Report'} icname={'business-time'} />
-    <Botton name={'PG Fund Request Report'} icname={'house-user'} />
-    <Botton name={'POS Fund Request Report'} icname={'pager'} />
     <Botton name={'All Transaction Report'} icname={'chart-line'} />
     </View>
 </View>

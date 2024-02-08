@@ -6,7 +6,10 @@ import { COLORS } from '../Colors/Colors'
 const Inputtext = ({
   name,
   place,
-  val
+  val,
+  value,
+  setValue,
+  keyboard
 }) => {
   return (
     <View style={{ backgroundColor: COLORS.white }}>
@@ -21,7 +24,7 @@ const Inputtext = ({
       </Text>
       {val == 'Notedit' ? <TextInput
         placeholder={place}
-        placeholderTextColor={'grey'}
+        placeholderTextColor={'#000'}
         style={{
           borderWidth: 1,
           borderColor: 'grey',
@@ -31,8 +34,11 @@ const Inputtext = ({
           marginTop: 2
         }}
         editable={false}
+        
       /> : <TextInput
         placeholder={place}
+        value={value}
+        onChangeText={setValue}
         placeholderTextColor={'grey'}
         style={{
           borderWidth: 1,
@@ -42,8 +48,7 @@ const Inputtext = ({
           paddingStart: 20,
           marginTop: 2
         }}
-        keyboardType='numeric'
-        maxLength={10}
+        keyboardType={keyboard}
       />}
     </View>
   )

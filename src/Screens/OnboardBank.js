@@ -1,37 +1,149 @@
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, TextInput, ScrollView, ActivityIndicator, Modal } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
 import { COLORS } from '../Colors/Colors'
 import Inputtext from '../Components/Inputtext'
 import DropdownSelect from '../Components/DropdownSelect'
+import { Base_Url, UserProfile, userBankDetails } from '../Config/config'
+import axios from "axios";
+import Toast from 'react-native-tiny-toast'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const OnboardBank = ({ navigation }) => {
+const OnboardBank = ({ navigation, route }) => {
+  const [bank, setBank] = useState('')
+  const [bankacc, setBankacc] = useState('')
+  const [ifsc, setIfsc] = useState('')
+  const [panno, setPanNo] = useState('')
+  const [track, settrack] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    const { props } = route?.params;
+    // setBank(props.data.cus_account_type)
+    // setBankacc(props.data.cus_account_no)
+    // setIfsc(props.data.cus_ifsc)
+    // setPanNo(props.data.cus_pan_no)
+    call()
+    setModalVisible(true)
+  },[])
+  const call=async()=>{
+    const token = await AsyncStorage.getItem('cus_token');
+    const id = await AsyncStorage.getItem('cus_id');
+    axios.get(Base_Url + UserProfile , {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'token': token,
+        'cus_id': id
+      }
+  })
+      .then(function (response) {
+
+          if (response.data.status == 'SUCCESS') {
+              // console.log('datta',response.data.userData);
+              setBank(response.data.userData.cus_account_type)
+              setBankacc(response.data.userData.cus_account_no)
+              setIfsc(response.data.userData.cus_ifsc)
+              setPanNo(response.data.userData.cus_pan_no)
+              setModalVisible(false)
+          }
+          else if (response.data.status == 'FAIL') {
+              Toast.showSuccess('Failed')
+              
+          }
+
+      }).catch(function (error) {
+          Toast.showSuccess('Server Error')
+         
+      })
+  }
+  const submit = async () => {
+    setModalVisible(true)
+    // console.log('heloo');
+    const token = await AsyncStorage.getItem('cus_token');
+    const id = await AsyncStorage.getItem('cus_id');
+    axios.post(Base_Url + userBankDetails, {
+      account_type: bank,
+      account_number: bankacc,
+      ifsc_code: ifsc,
+      pan_number: panno,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+        'cus_id': id
+
+      }
+    })
+      .then(function (response) {
+
+        if (response.data.status == 'SUCCESS') {
+          Toast.showSuccess('Submitted')
+          settrack(true)
+          setModalVisible(false)
+          // console.log('56',response.data)
+        }
+        else if (response.data.status == 'FAIL') {
+          Toast.showSuccess('Failed')
+          isLoading(false)
+          setPhone('')
+          setPass('')
+        }
+
+      }).catch(function (error) {
+        Toast.showSuccess('Server Error')
+        isLoading(false)
+        setPhone('')
+        setPass('')
+      })
+
+  }
+  const next = () => {
+    if (track == true || (bankacc!='' && bank!='' && ifsc!='' && panno!='') ) {
+      navigation.navigate('OnboardLocation')
+    }
+  }
+
+  const dropdowngender = [
+    { key: '1', value: 'Saving' },
+    { key: '2', value: 'Current' },
+  ]
+
   return (
+    
     <ScrollView
       contentContainerStyle={{
         flex: 1,
         paddingBottom: 40,
         backgroundColor: '#fff'
       }}>
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+      >
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          marginTop: 0
+        }}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      </Modal>
       <View style={{
         flex: 1,
         backgroundColor: COLORS.white
       }}>
         <View
           style={{
-            width: '90%',
+            width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row'
           }}>
-          <TouchableOpacity
-            style={{
-              width: '10%',
-              right: 30
-            }}
-            onPress={() => navigation.goBack()}>
-            <Icon name='arrow-left' size={30} color={COLORS.black} />
-          </TouchableOpacity>
+          
           <Text
             style={{
               fontSize: 26,
@@ -48,19 +160,28 @@ const OnboardBank = ({ navigation }) => {
             alignSelf: 'center',
             marginTop: 20
           }}>
-          <DropdownSelect nam={'Bank Account Type'} />
+          <DropdownSelect nam={'Bank Account Type'}
+            dropselect={bank}
+            setDropselect={setBank}
+            showContent='Select Type'
+            dropdown={dropdowngender}
+          />
           <Inputtext
             name={'Account Number'}
-            place={'0011087456'}
-            val='Notedit' />
+            value={bankacc}
+            setValue={setBankacc}
+            keyboard={'numeric'}
+             />
           <Inputtext
             name={'IFSC Code'}
-            place={'TOM8765B7'}
-            val='Notedit' />
+            value={ifsc}
+            setValue={setIfsc}
+             />
           <Inputtext
             name={'Pan Number'}
-            place={'SDFRT4533k'}
-            val='Notedit' />
+            value={panno}
+            setValue={setPanNo}
+            />
           <View
             style={{
               flexDirection: 'row',
@@ -70,6 +191,8 @@ const OnboardBank = ({ navigation }) => {
               marginTop: 40
             }}>
             <TouchableOpacity
+            activeOpacity={0.7}
+              onPress={submit}
               style={{
                 backgroundColor: COLORS.main,
                 width: '45%',
@@ -87,9 +210,10 @@ const OnboardBank = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('OnboardLocation')}
+            activeOpacity={0.7}
+              onPress={next}
               style={{
-                backgroundColor: COLORS.main,
+                backgroundColor: track == true || (bankacc!='' && bank!='' && ifsc!='' && panno!='')  ? COLORS.main : 'grey',
                 width: '45%',
                 alignItems: 'center',
                 paddingVertical: 10,

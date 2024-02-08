@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity,Linking} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
 import WebView from 'react-native-webview'
@@ -76,10 +76,16 @@ useEffect(()=>{
       /> : null}
       <View style={{ flex: 10 }}>
         <WebView
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        javaScriptCanOpenWindowsAutomatically={true}
+        // onShouldStartLoadWithRequest={event => {if(event.url==="transaction")
+          
+        //   return false;}}
           source={{ uri: url }}
           style={{ flex: 1 }}
           onNavigationStateChange={navState => {
-            // console.log("navState ", navState.url);
+            console.log("navState ", navState.url);
             if (navState.url.includes("notify")) {
               // console.log("go back after 10 seconds");
               // setBack(true)
@@ -87,6 +93,9 @@ useEffect(()=>{
                 navigation.navigate('Home')
               }, 5000);
             }
+            // if(navState.url.includes('transaction')){
+            //   Linking.openURL(navState.url)
+            // }
           }}
           onLoadProgress={({ nativeEvent }) => setProgress(nativeEvent.progress)}
           onLoadEnd={() => setLoad(true)}
