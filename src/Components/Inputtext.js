@@ -9,7 +9,8 @@ const Inputtext = ({
   val,
   value,
   setValue,
-  keyboard
+  keyboard,
+  length
 }) => {
   return (
     <View style={{ backgroundColor: COLORS.white }}>
@@ -49,6 +50,7 @@ const Inputtext = ({
           marginTop: 2
         }}
         keyboardType={keyboard}
+        maxLength={length}
       />}
     </View>
   )

@@ -101,8 +101,8 @@ const Home = ({ navigation }) => {
     // setRefreshing(true)
     const token = await AsyncStorage.getItem('cus_token');
     const id = await AsyncStorage.getItem('cus_id');
-    console.log("token", token);
-    console.log("id", id);
+    // console.log("token", token);
+    // console.log("id", id);
 
     axios.get(Base_Url + dashboard, {
       headers: {

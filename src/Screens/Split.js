@@ -15,6 +15,7 @@ const Split = () => {
   retrieveData = async () => {
     const value = await AsyncStorage.getItem('mess');
     const profile = await AsyncStorage.getItem('profile');
+    const page= await AsyncStorage.getItem('page');
     if (value !==null && profile==1) {
       navigation.reset({
         index: 0,
@@ -22,10 +23,31 @@ const Split = () => {
       });
     }
     else if(value !==null && profile==0){
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'OnboardProfile' }],
-      });
+      if(page=='4'){
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'OnboardDocument' }],
+        });
+      }
+      else if(page=='3'){
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'OnboardLocation' }],
+        });
+      }
+      else if (page=='2'){
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'OnboardBank' }],
+        });
+      }
+      else{
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'OnboardProfile' }],
+        });
+      }
+      
     }
     else{
       navigation.reset({

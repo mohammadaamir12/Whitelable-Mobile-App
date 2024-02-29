@@ -1,13 +1,33 @@
 import { View, Text,TouchableOpacity,TextInput } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
 import { COLORS } from '../Colors/Colors'
 import Inputtext from '../Components/Inputtext'
 import DropdownSelect from '../Components/DropdownSelect'
+import axios from "axios";
 import Toast from 'react-native-tiny-toast'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const PayoutSendMoney = ({navigation}) => {
-    const Transfer =()=>{
+const PayoutSendMoney = ({navigation,route}) => {
+  const {mobile,ifsc,id,account,name}=route.params;
+  const[beneficieryname,setbeneficieryname]=useState();
+  const[beneficierymobile,setbeneficierymobile]=useState();
+  const[beneficieryid,setbeneficieryid]=useState();
+  const[beneficieryaccount,setbeneficieryaccount]=useState();
+  const[beneficieryifsc,setbeneficieryifsc]=useState();
+  useEffect(()=>{
+  getbenedetails()
+  },[])
+  const getbenedetails=()=>{
+  setbeneficieryname(name)
+  setbeneficieryaccount(account)
+  setbeneficieryid(id)
+  setbeneficieryifsc(ifsc)
+  setbeneficierymobile(mobile)
+  }
+    const Transfer =async()=>{
+      const senderMobile=await AsyncStorage.getItem('mobile');
+      console.log('dddddd',senderMobile)
         Toast.showSuccess('Done')
         navigation.goBack();
     }

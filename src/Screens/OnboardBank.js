@@ -18,7 +18,7 @@ const OnboardBank = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const { props } = route?.params;
+    // const { props } = route?.params;
     // setBank(props.data.cus_account_type)
     // setBankacc(props.data.cus_account_no)
     // setIfsc(props.data.cus_ifsc)
@@ -46,6 +46,7 @@ const OnboardBank = ({ navigation, route }) => {
               setIfsc(response.data.userData.cus_ifsc)
               setPanNo(response.data.userData.cus_pan_no)
               setModalVisible(false)
+              set();
           }
           else if (response.data.status == 'FAIL') {
               Toast.showSuccess('Failed')
@@ -57,50 +58,66 @@ const OnboardBank = ({ navigation, route }) => {
          
       })
   }
+  const set=()=>{
+    if(bank!='' && bankacc!='' && ifsc_code!='' && panno!=''){
+      settrack(true)
+    }
+  }
   const submit = async () => {
-    setModalVisible(true)
-    // console.log('heloo');
-    const token = await AsyncStorage.getItem('cus_token');
-    const id = await AsyncStorage.getItem('cus_id');
-    axios.post(Base_Url + userBankDetails, {
-      account_type: bank,
-      account_number: bankacc,
-      ifsc_code: ifsc,
-      pan_number: panno,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': token,
-        'cus_id': id
-
-      }
-    })
-      .then(function (response) {
-
-        if (response.data.status == 'SUCCESS') {
-          Toast.showSuccess('Submitted')
-          settrack(true)
-          setModalVisible(false)
-          // console.log('56',response.data)
+    if(bank!='' && bankacc!='' && ifsc_code!='' && panno!=''){
+      setModalVisible(true)
+      // console.log('heloo');
+      const token = await AsyncStorage.getItem('cus_token');
+      const id = await AsyncStorage.getItem('cus_id');
+      axios.post(Base_Url + userBankDetails, {
+        account_type: bank,
+        account_number: bankacc,
+        ifsc_code: ifsc,
+        pan_number: panno,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'token': token,
+          'cus_id': id
+  
         }
-        else if (response.data.status == 'FAIL') {
-          Toast.showSuccess('Failed')
+      })
+        .then(function (response) {
+  
+          if (response.data.status == 'SUCCESS') {
+            Toast.showSuccess('Submitted')
+            settrack(true)
+            setModalVisible(false)
+            // console.log('56',response.data)
+          }
+          else if (response.data.status == 'FAIL') {
+            Toast.showSuccess('Failed')
+            isLoading(false)
+            setPhone('')
+            setPass('')
+          }
+  
+        }).catch(function (error) {
+          Toast.showSuccess('Server Error')
           isLoading(false)
           setPhone('')
           setPass('')
-        }
-
-      }).catch(function (error) {
-        Toast.showSuccess('Server Error')
-        isLoading(false)
-        setPhone('')
-        setPass('')
-      })
+        })
+    }
+    else{
+      Toast.showSuccess('Upload all images')
+    }
+   
 
   }
   const next = () => {
-    if (track == true || (bankacc!='' && bank!='' && ifsc!='' && panno!='') ) {
-      navigation.navigate('OnboardLocation')
+    if (track == true && (bankacc!='' && bank!='' && ifsc!='' && panno!='') ) {
+      
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'OnboardLocation'
+    }],
+    });
     }
   }
 
@@ -116,12 +133,13 @@ const OnboardBank = ({ navigation, route }) => {
         flex: 1,
         paddingBottom: 40,
         backgroundColor: '#fff'
-      }}>
+      }} showsVerticalScrollIndicator={false}>
         <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
       >
+        
         <View style={{
           flex: 1,
           justifyContent: 'center',

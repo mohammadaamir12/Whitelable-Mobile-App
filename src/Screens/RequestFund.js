@@ -5,7 +5,7 @@ import { COLORS } from '../Colors/Colors'
 import Inputtext from '../Components/Inputtext'
 import DropdownSelect from '../Components/DropdownSelect'
 import InternetAvl from './InternetAvl'
-import { Base_Url, FundRequest } from '../Config/config'
+import { Base_Url, FundRequest, banklist } from '../Config/config'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Toast from 'react-native-tiny-toast'
@@ -17,14 +17,53 @@ const RequestFund = ({ navigation }) => {
   const [chooseFile, setChooseFile] = useState(null);
   const [amount, setAmount] = useState('');
   const [reference, setReference] = useState('');
+  const [request,setrequest]=useState('');
+  const [txn,setTxn]=useState('');
+  const [bank,setBank]=useState('');
+  const [review,setReview]=useState('')
+  const [lists,setLists]=useState('');
+  const [payment,setPayment]=useState('')
   const [modal, setModal] = useState(false);
-  // const [amount,setAmount]=useState('');
-  // const [amount,setAmount]=useState('');
-  // const [amount,setAmount]=useState('');
+ 
+  
 
-  // useEffect(()=>{
-  //   hasPermissin();
-  // },[])
+  useEffect(()=>{
+    list();
+  },[])
+
+  const list=async()=>{
+    console.log('hello');
+    const token = await AsyncStorage.getItem('cus_token');
+    const id = await AsyncStorage.getItem('cus_id');
+    axios.get(Base_Url + banklist , {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'token': token,
+        'cus_id': id
+      }
+  })
+      .then(function (response) {
+         
+          if (response.data.status == 'Success') {
+              console.log('dat-ta',response.data.bank);
+              let newArray = response.data.bank.map((item) => {
+                return { key: item.bank_id, value: item.bank_name }
+              })
+              setLists(newArray)
+              
+          }
+          else if (response.data.status == 'FAIL') {
+              Toast.showSuccess('Failed')
+              console.log('failesd')
+              
+          }
+
+      }).catch(function (error) {
+          Toast.showSuccess('Server Error',error.response.data)
+         
+      })
+  }
   const file =async () => {
     
     let options = {
@@ -93,43 +132,55 @@ const RequestFund = ({ navigation }) => {
     const token = await AsyncStorage.getItem('cus_token');
     const id = await AsyncStorage.getItem('cus_id');
     const data = new FormData();
-    data.append('amount', 'raphael');
-    data.append('bankname', 'raphael');
-    data.append('payment_mode', 'raphael');
-    data.append('reference_number', 'raphael');
-    data.append('remarks', 'raphael');
-    data.append('receipt', chooseFile);
-    axios.post(Base_Url + FundRequest, {
-      body: data,
+    data.append('request_from',request);
+    data.append('amount', amount);
+    data.append('reference_number', reference);
+    data.append('txn_type', txn);
+    data.append('bankname', bank);
+    data.append('payment_mode', payment);
+    data.append('receipt', { uri: chooseFile, type: 'image/jpg', name: 'shop_photo.png' });
+    data.append('remarks', review);
+   console.log('request',data)
+    axios({
+      method: 'post',
+      url: Base_Url+FundRequest, 
+      data: data,
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data',
         'token': token,
         'cus_id': id
-      }
+      },
     })
-      .then(function (response) {
-
-        if (response.data.status == 'SUCCESS') {
-          console.log(response);
-          // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
-        }
-        else {
-
-          Toast.show('Failed', {
-            position: Toast.position.center,
-            containerStyle: {},
-            textStyle: {},
-          })
-        }
-      }).catch(function (error) {
-        Toast.show('Request failed', {
-          position: Toast.position.center,
-          containerStyle: {},
-          textStyle: {},
-        })
-      })
+    .then(response => {
+      // console.log('Upload success:', response.data);
+      // settrack(true)
+      // setmodalVisible(false)
+      Toast.showSuccess('Submitted')
+      
+      setTimeout(() => {
+       
+        
+        navigation.navigate('HomeScreen')
+      }, 3000);
+      
+    })
+    .catch(error => {
+      console.error('Upload error:', error.response ? error.response : error);
+      // console.log(error.response.data)
+    });
   }
+  const txn_type = [
+    { key: '1', value: 'Fund Request'},
+    { key: '2', value: 'PG Request'},
+    { key: '3', value: 'POS Machine'}
+  ]
+  const payment_mode = [
+    { key: '1', value: 'Cash Deposit'},
+    { key: '2', value: 'Cheque Deposit'},
+    { key: '3', value: 'ATM Transfer'},
+    { key: '4', value: 'Online Transfer (IMPS/NEFT/RTGS)'}
+  ]
+
   return (
     <View style={{ flex: 1 }}>
       <Modal
@@ -155,7 +206,7 @@ const RequestFund = ({ navigation }) => {
         </View>
       </Modal>
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 40, backgroundColor: '#fff' }}>
+      <ScrollView  contentContainerStyle={{ paddingBottom: 40, backgroundColor: '#fff' }}>
         <View style={{ flex: 1, backgroundColor: COLORS.white }}>
           <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
             <TouchableOpacity style={{ width: '10%', right: 50 }} onPress={() => navigation.goBack()}>
@@ -164,12 +215,12 @@ const RequestFund = ({ navigation }) => {
             <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Fund Request</Text>
           </View>
           <View style={{ flex: 1, width: '90%', alignSelf: 'center', marginTop: 20 }}>
-            <Inputtext name={'Request To'} place={'Admin'} />
+            <Inputtext name={'Request To'} place={'Admin'} value={request} setValue={setrequest} />
             <Inputtext name={'Amount'} place={'Enter Amount'} value={amount} setValue={setAmount} />
             <Inputtext name={'Reference Number'} place={'Enter Number'} value={reference} setValue={setReference} />
-            <DropdownSelect nam='Txn Type' sty={5} />
-            <DropdownSelect nam='Bank' sty={5} />
-            <DropdownSelect nam='Payment Mode' sty={5} />
+            <DropdownSelect nam='Txn Type' sty={5} showContent={'Select Type'} dropdown={txn_type} dropselect={txn} setDropselect={setTxn}/>
+            <DropdownSelect nam='Bank' sty={5} showContent={'Select Bank'} dropdown={lists} dropselect={bank} setDropselect={setBank} type={'type'} />
+            <DropdownSelect nam='Payment Mode' sty={5} showContent={'Select Mode'} dropdown={payment_mode} dropselect={payment} setDropselect={setPayment} />
             <View style={{ backgroundColor: COLORS.white }}>
               <Text style={{ marginTop: 10, fontSize: 14, fontWeight: '400', color: 'grey' }}>Receipt</Text>
               <View style={{ justifyContent: 'center' }}>
@@ -181,9 +232,9 @@ const RequestFund = ({ navigation }) => {
                   <Text style={{ color: '#000', fontSize: 14, fontWeight: '400' }}>Choose Files</Text>
                 </TouchableOpacity>
               </View>
-              <Inputtext name={'Review'} />
+              <Inputtext name={'Review'} place={'Write review'} value={review} setValue={setReview}  />
             </View>
-            <TouchableOpacity activeOpacity={0.7} style={{ backgroundColor: COLORS.main, borderRadius: 30, width: '80%', height: '7%', alignSelf: 'center', marginTop: 30, alignItems: 'center', justifyContent: 'center', elevation: 2 }}>
+            <TouchableOpacity onPress={req} activeOpacity={0.7} style={{ backgroundColor: COLORS.main, borderRadius: 30, width: '80%', height: '7%', alignSelf: 'center', marginTop: 30, alignItems: 'center', justifyContent: 'center', elevation: 2 }}>
               <Text style={{ fontSize: 20, fontWeight: '700', color: COLORS.white }}>Submit</Text>
             </TouchableOpacity>
           </View>

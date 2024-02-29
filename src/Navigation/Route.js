@@ -36,6 +36,9 @@ import AccountDocumentDetails from '../Screens/AccountDocumentDetails'
 import AccountChangePassword from '../Screens/AccountChangePassword'
 import AccountChangePin from '../Screens/AccountChangePin'
 import { StatusBar } from 'react-native';
+import Securemood1 from '../Screens/Securemood1';
+import Normal1 from '../Screens/Normal1';
+import Securekycnotverified from '../Screens/Securekycnotverified';
 const Stack = createNativeStackNavigator();
 
 
@@ -72,10 +75,13 @@ const Route = () => {
         <Stack.Screen name="RequestFund" component={RequestFund} />
         <Stack.Screen name="TopUp" component={TopUp} />
         <Stack.Screen name="PayoutMoneytrans" component={PayoutMoneytrans} />
+        <Stack.Screen name="Securekycnotverified" component={Securekycnotverified} />
         <Stack.Screen name="BankBeneficiery" component={BankBeneficiery} />
         <Stack.Screen name="CreditCardBeneficiery" component={CreditCardBeneficiery} />
         <Stack.Screen name="PayoutSendMoney" component={PayoutSendMoney} />
         <Stack.Screen name="PayoutReoprt" component={PayoutReoprt} />
+        <Stack.Screen name="Securemood1" component={Securemood1} />
+        <Stack.Screen name="Normal1" component={Normal1} />
         <Stack.Screen name="TopUpReport" component={TopUpReport} />
         <Stack.Screen name="FundRequestReport" component={FundRequestReport} />
         <Stack.Screen name="AllTransactionReport" component={AllTransactionReport} />

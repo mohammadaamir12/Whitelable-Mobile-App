@@ -3,28 +3,34 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 
-const Payoutbeneficierycart = ({name}) => {
+const Payoutbeneficierycart = ({name,bankname,account,ifsc,deleteactive,validate,onDelete,onSend}) => {
   const navigation = useNavigation();
+  // console.log('sssss',validate)
+  // console.log('sssss',deleteactive)
   return (
-    <View style={{width:'90%',alignSelf:'center',backgroundColor:'#FFF',elevation:1,marginTop:20,borderRadius:8,height:'20%',borderWidth:1,borderColor:'grey'}}>
-      <Text style={{color:'#000',fontWeight:'500',alignSelf:'center',fontSize:18,marginTop:10}}>Abhishek Jajoria</Text>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:5,height:'20%',alignItems:'center'}}>
-        <Text style={{marginStart:20,fontSize:16,fontWeight:'400',color:'#000'}}>Beneficiery Name</Text>
-        <TouchableOpacity onPress={()=>name=='send money'?navigation.navigate("PayoutSendMoney"):null} style={{marginEnd:20,backgroundColor:'#90EE90',borderRadius:8,width:'30%',height:'100%',alignItems:'center',justifyContent:'center'}}>
+    <View style={{paddingVertical:10,width:'90%',alignSelf:'center',backgroundColor:'#FFF',elevation:1,borderRadius:8,borderWidth:1,borderColor:'grey',marginTop:10}}>
+      <Text style={{color:'#000',fontWeight:'500',alignSelf:'center',fontSize:18}}>{bankname}</Text>
+      <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',}}>
+        <Text style={{marginStart:20,fontSize:16,fontWeight:'400',color:'#000'}}>{name}</Text>
+        <TouchableOpacity onPress={onSend} style={{marginEnd:20,backgroundColor:'#90EE90',borderRadius:8,width:'30%',alignItems:'center',justifyContent:'center',paddingVertical:5}}>
           <Text style={{fontSize:16,fontWeight:'400',color:'#fff'}}>Send Money</Text>
         </TouchableOpacity>
       </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:5,height:'20%',alignItems:'center'}}>
-        <Text style={{marginStart:20,fontSize:16,fontWeight:'400',color:'#000'}}>Bank Ac/Credit Card</Text>
-        <TouchableOpacity style={{marginEnd:20,backgroundColor:'#00bfff',borderRadius:8,width:'30%',height:'100%',alignItems:'center',justifyContent:'center'}}>
-          <Text style={{fontSize:16,fontWeight:'400',color:'#fff'}}>Validate</Text>
-        </TouchableOpacity>
+      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:8,alignItems:'center'}}>
+        <Text style={{marginStart:20,fontSize:16,fontWeight:'400',color:'#000'}}>{account}</Text>
+       {validate=='1'?<TouchableOpacity style={{marginEnd:20,backgroundColor:'#00bfff',paddingVertical:5,borderRadius:8,width:'30%',alignItems:'center',justifyContent:'center'}}>
+         <Text style={{fontSize:16,fontWeight:'400',color:'#fff'}}>Validate</Text>
+        </TouchableOpacity>:<TouchableOpacity activeOpacity={1} style={{marginEnd:20,backgroundColor:'#D8D8D8',paddingVertical:5,borderRadius:8,width:'30%',alignItems:'center',justifyContent:'center'}}>
+         <Text style={{fontSize:16,fontWeight:'400',color:'#C0C0C0'}}>Validate</Text>
+        </TouchableOpacity>}
       </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:5,height:'20%',alignItems:'center'}}>
-        <Text style={{marginStart:20,fontSize:16,fontWeight:'400',color:'#000'}}>IFSC</Text>
-        <TouchableOpacity style={{marginEnd:20,backgroundColor:'#FFCCCB',borderRadius:8,width:'30%',height:'100%',alignItems:'center',justifyContent:'center'}}>
+      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:8,alignItems:'center'}}>
+        <Text style={{marginStart:20,fontSize:16,fontWeight:'400',color:'#000'}}>{ifsc}</Text>
+       {deleteactive=='1'?<TouchableOpacity onPress={onDelete} style={{marginEnd:20,backgroundColor:'#FFCCCB',paddingVertical:5,borderRadius:8,width:'30%',alignItems:'center',justifyContent:'center'}}>
           <Text style={{fontSize:16,fontWeight:'400',color:'#fff'}}>Delete</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>:<TouchableOpacity activeOpacity={1} style={{marginEnd:20,backgroundColor:'#D8D8D8',paddingVertical:5,borderRadius:8,width:'30%',alignItems:'center',justifyContent:'center'}}>
+          <Text style={{fontSize:16,fontWeight:'400',color:'#C0C0C0'}}>Delete</Text>
+        </TouchableOpacity>} 
         
       </View>
      

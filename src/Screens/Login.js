@@ -26,6 +26,7 @@ const Login = ({ navigation }) => {
     //   }, [userData]);
     const loginprofile = async () => {
         const value = await AsyncStorage.getItem('profile');
+        const page = await AsyncStorage.getItem('page');
         // console.log(value);
         isLoading(false)
         if (value == '1') {
@@ -40,12 +41,38 @@ const Login = ({ navigation }) => {
         }
         else {
             // isLoading(false)
+            if(page=='4'){
+            Toast.showSuccess('Success')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'OnboardDocument'
+            }],
+            });
+        }
+        else if(page=='3'){
+            Toast.showSuccess('Success')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'OnboardLocation'
+            }],
+            });
+        }
+        else if(page=='2'){
+            Toast.showSuccess('Success')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'OnboardBank'
+            }],
+            });
+        }
+        else{
             Toast.showSuccess('Success')
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'OnboardProfile'
             }],
-            });
+            });  
+        }
             
            
         }
@@ -65,6 +92,7 @@ const Login = ({ navigation }) => {
                     AsyncStorage.setItem('profile', response.data.userData.profile_flag)
                     AsyncStorage.setItem('cus_id', response.data.userData.cus_id)
                     AsyncStorage.setItem('cus_token', response.data.userData.cus_token)
+                    AsyncStorage.setItem('page', response.data.userData.pages)
                     
                     // console.log('sdddd',userData);
                     // console.log("response",response);
