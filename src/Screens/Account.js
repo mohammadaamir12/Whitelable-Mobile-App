@@ -137,13 +137,18 @@ const profilecall=async()=>{
         />
         <Menulist
           naam='Bank Details'
-          icon='bank' />
+          icon='bank' 
+          profiledetails={profiledata}
+          />
         <Menulist
           naam='Location Details'
-          icon='location' />
+          icon='location'
+          profiledetails={profiledata}
+          />
         <Menulist
           naam='Document details'
           icon='text-document'
+          profiledetails={profiledata}
         />
         <Menulist
           naam='Change Password'

@@ -53,3 +53,12 @@ export const addbeneficiary='addbeneficiary'
 export const getbeneficiarybycustomer='getbeneficiarybycustomer'
 // post delete beneficiary secure mode
 export const deletebeneficiary='deletebeneficiary'
+// post secure mode send money
+export const sendMoney='sendMoney' 
+// post Verification suit card verify
+export const CardVerification='BinVerification'
+// post account verification suit 
+export const AccountVerification='BavVerification'
+// post verification suit gst
+export const GstVerification='GstVerification'
+ 

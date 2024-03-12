@@ -173,13 +173,13 @@ const Login = ({ navigation }) => {
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <TextInput value={pass} onChangeText={setPass} secureTextEntry={showpass} style={{ borderBottomColor: 'grey', borderBottomWidth: 1, width: '100%', fontSize: 17, color: COLORS.black }} placeholderTextColor={COLORS.black} />
                         <TouchableOpacity activeOpacity={0.5} onPress={() => passwordShow()}>
-                            {secure == true ? <Image source={require('../assets/icons8-eye-48.png')} style={{ height: hp('4.5%'), width: wp('8%'), right: 35 }} /> : <Image source={require('../assets/eye-close.png')} style={{ height: hp('4%'), width: wp('8%'), right: 35 }} />}
+                            {secure == true ? <Image source={require('../assets/icons8-eye-48.png')} style={{ height: hp('4.5%'), width: wp('8%'), right:'100%' }} /> : <Image source={require('../assets/eye-close.png')} style={{ height: hp('4.5%'), width: wp('8%'), right:'100%' }} />}
                         </TouchableOpacity>
                     </View>
                     {passErr == true ? <Text style={{ marginTop: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>Please enter Password !</Text> : null}
                 </View>
-                <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: COLORS.main, height: hp('7%'), alignItems: 'center', justifyContent: 'center', borderRadius: 30, marginTop: hp('16%') }}>
-                    <Text style={{ color: COLORS.white, fontSize: 22, fontWeight: 'bold' }}>Sign in</Text>
+                <TouchableOpacity onPress={() => submit()} style={{ backgroundColor: COLORS.main, paddingVertical:20, alignItems: 'center', justifyContent: 'center', borderRadius: 30, marginTop: hp('16%') }}>
+                    <Text style={{ color: COLORS.white, fontSize:hp('2%'), fontWeight: 'bold' }}>Sign in</Text>
                 </TouchableOpacity>
 
             </View>}

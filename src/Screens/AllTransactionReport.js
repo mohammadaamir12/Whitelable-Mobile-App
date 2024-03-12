@@ -16,7 +16,7 @@ const AllTransactionReport = ({ navigation }) => {
   useEffect(()=>{
     report();
     
-  })
+  },[])
   const report= async() =>{
     const token = await AsyncStorage.getItem('cus_token');
       const id = await AsyncStorage.getItem('cus_id');
@@ -56,8 +56,8 @@ const AllTransactionReport = ({ navigation }) => {
       {loader==false?<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }} >
                 <ActivityIndicator size="large" color={COLORS.main} />
             </View>:<ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.white, marginTop: 10, flexDirection: 'row' }}>
-          <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', right: 10 }} onPress={() => navigation.goBack()}>
+        <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.white, marginTop: 10, flexDirection: 'row' }}>
+          <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', left:'5%',position:'absolute' }} onPress={() => navigation.goBack()}>
             <Icon name='arrow-left' size={30} color={COLORS.black} />
           </TouchableOpacity>
           <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>All Transaction Report</Text>
@@ -92,7 +92,7 @@ const AllTransactionReport = ({ navigation }) => {
          showsVerticalScrollIndicator={false}
         data={allReport}
         renderItem={({item})=>
-        <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={'Subscription'} dat={item.txn_date} />
+        <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/handsome.jpg')} sub={item.txn_type} dat={item.txn_date} />
         }
         />
           {/* <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />

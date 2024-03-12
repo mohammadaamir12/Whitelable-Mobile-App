@@ -256,7 +256,7 @@ const OnboardDocument = () => {
                     
                     <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Document Details</Text>
                 </View>
-                <View style={{ flex: 1, width: '90%', alignSelf: 'center', }}>
+                <View style={{ flex: 1, width: '90%', alignSelf: 'center',marginTop:'5%'  }}>
                     {imageurists==0 && imageuri!=''?<View style={{ height: '50%', marginTop: 10 }}>
                         {imageuri != '' ? <Image style={{ height: '55%', width: '40%', alignSelf: 'center', borderRadius: 8 }} source={{ uri: imageuri }} /> : null}
                         <TouchableOpacity onPress={() => imglib()} activeOpacity={0.7} style={{ backgroundColor: imageuri == '' ? COLORS.main : 'grey', borderRadius: 8, width: '100%', height: '25%', alignSelf: 'center', marginTop: 10, alignItems: 'center', justifyContent: 'center', elevation: 2, flexDirection: 'row' }}>

@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 
-const Menulist = ({ naam, icon,profiledetails }) => {
+const Menulist = ({ naam, icon, profiledetails }) => {
   const navigation = useNavigation();
   const logout = () => {
     AsyncStorage.removeItem('mess')
@@ -23,7 +23,7 @@ const Menulist = ({ naam, icon,profiledetails }) => {
     AsyncStorage.removeItem('page')
     AsyncStorage.removeItem('mtuser_id')
     AsyncStorage.removeItem('mtcus_id')
-    
+
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }]
@@ -38,21 +38,30 @@ const Menulist = ({ naam, icon,profiledetails }) => {
         backgroundColor: '#E8F1EE',
         width: '95%',
         alignSelf: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        paddingVertical: 15,
+        elevation: 5, // for Android shadow
+        shadowColor: "#000", // for iOS shadow
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
       }}
       activeOpacity={0.7}
       onPress={() => {
-        icon == 'profile' ? navigation.navigate('AccountProfile',{props:{profiledetails}}) :
-        icon == 'bank' ? navigation.navigate('AccountBankDetails') :
-          icon == 'location' ? navigation.navigate('AccountLocation') :
-            icon == 'text-document' ? navigation.navigate('AccountDocumentDetails') :
-              icon == 'published-with-changes' ? navigation.navigate('AccountChangePassword') :
-                icon == 'key-change' ? navigation.navigate('AccountChangePin') :
-                  icon == 'logout' ? logout() :
-                    null
+        icon == 'profile' ? navigation.navigate('AccountProfile', { props: { profiledetails } }) :
+          icon == 'bank' ? navigation.navigate('AccountBankDetails', { props: { profiledetails } }) :
+            icon == 'location' ? navigation.navigate('AccountLocation', { props: { profiledetails } }) :
+              icon == 'text-document' ? navigation.navigate('AccountDocumentDetails', { props: { profiledetails } }) :
+                icon == 'published-with-changes' ? navigation.navigate('AccountChangePassword') :
+                  icon == 'key-change' ? navigation.navigate('AccountChangePin') :
+                    icon == 'logout' ? logout() :
+                      null
       }}
     >
-      {console.log('hi i am here',profiledetails)}
+      {console.log('hi i am here', profiledetails)}
       <View
         style={{
           alignItems: 'center',

@@ -33,7 +33,7 @@ const PayoutReoprt = ({ navigation }) => {
             if (response.data.status == 'SUCCESS') {
              setPayoutReport(response.data.allreports)
              setLoader(true)
-                // console.log('sdddd',userData);
+                console.log('sdddd',response.data.allreports);
                 // console.log("response",response.data.tranaction.payout_transaction[0].amount);   
             } 
             else {
@@ -49,15 +49,17 @@ const PayoutReoprt = ({ navigation }) => {
             containerStyle: {},
             textStyle: {},
           })
+          console.log(error)
           })
+          
   }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       {loader==false?<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }} >
                 <ActivityIndicator size="large" color={COLORS.main} />
             </View>:<ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.white, marginTop: 10, flexDirection: 'row' }}>
-          <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', right: 60 }} onPress={() => navigation.goBack()}>
+        <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.white, marginTop: 10, flexDirection: 'row' }}>
+          <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%',position:'absolute',left:'5%'  }} onPress={() => navigation.goBack()}>
             <Icon name='arrow-left' size={30} color={COLORS.black} />
           </TouchableOpacity>
           <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Payout Report</Text>
@@ -93,7 +95,7 @@ const PayoutReoprt = ({ navigation }) => {
          showsVerticalScrollIndicator={false}
         data={payoutReport}
         renderItem={({item})=>
-        <Historycom nam={item.order_id} amt={item.credit_amount} imgg={require('../assets/user.png')} sub={'Subscription'} dat={item.paytm_txn_datetime} />
+        <Historycom nam={item.order_id} amt={item.credit_amount} imgg={require('../assets/handsome.jpg')} sub={item.txn_status_desc} dat={item.paytm_txn_datetime} />
         }
         />
           {/* <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />

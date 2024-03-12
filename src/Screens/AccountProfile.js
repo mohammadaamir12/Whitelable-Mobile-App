@@ -35,8 +35,8 @@ const AccountProfile = ({ navigation,route}) => {
     <ScrollView contentContainerStyle={{flex:1, paddingBottom: 40, backgroundColor: '#fff' }}>
    
    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-     <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-       <TouchableOpacity style={{ width: '10%', right: 90 }} onPress={() => navigation.goBack()}>
+     <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+       <TouchableOpacity style={{ width: '10%',left:'5%',position:'absolute' }} onPress={() => navigation.goBack()}>
          <Icon name='arrow-left' size={30} color={COLORS.black} />
        </TouchableOpacity>
        <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>Profile</Text>

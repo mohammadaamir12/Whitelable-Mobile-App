@@ -299,10 +299,10 @@ const Home = ({ navigation }) => {
       </View> : <ScrollView refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       } style={{ marginTop: 10 }} showsVerticalScrollIndicator={false}>
-        <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 14, alignItems: 'center' }}>
+        <View style={{ justifyContent:'space-between', flexDirection: 'row', margin: 14, alignItems: 'center' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity activeOpacity={0.9} onPress={() => { navigation.openDrawer() }}>
-              <Image style={{ height: hp('8%'), width: wp('16%'), }} source={require('../assets/man.png')} />
+              <Image style={{ height: hp('8%'), width: wp('16%'),resizeMode:'contain' }} source={require('../assets/man.png')} />
             </TouchableOpacity>
             <View style={{ marginStart: 10 }}>
               <Text style={{ color: COLORS.main, fontSize: hp('2%'), fontWeight: '400' }}>Welcome !</Text>
@@ -328,10 +328,10 @@ const Home = ({ navigation }) => {
         }}>
           Activity
         </Text>
-        <View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <SendandReceivebtn color={'#F7F1FF'} text={'Top-up Wallet'} name={'arrow-up-right'} iconColor={'#A699F8'} page={'Topup'} />
-            <SendandReceivebtn color={'#FFF3F0'} text={'Payout'} name={'arrow-down-left'} iconColor={'#EF8B6E'} page={'Payout'} />
+        <View >
+          <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
+            <SendandReceivebtn color={'#F7F1FF'} text={'Top-up Wallet'} name={'arrow-down-left'} iconColor={'#A699F8'} page={'Topup'} />
+            <SendandReceivebtn color={'#FFF3F0'} text={'Payout'} name={'arrow-up-right'} iconColor={'#EF8B6E'} page={'Payout'} />
             <SendandReceivebtn color={'#FAF0F5'} text={'Request Fund'} name={'archive'} iconColor={'#F497C9'} page={'RequestFund'} />
             <SendandReceivebtn color={'#E8F1EE'} text={'Verification Suite'} name={'briefcase'} iconColor={'#056348'} page={'VerficationSuit'} />
           </ScrollView>
@@ -357,7 +357,7 @@ const Home = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           data={orderid}
           renderItem={({ item }) =>
-            <Historycom nam={profileName} amt={item.txn_crdt} imgg={require('../assets/user.png')} sub={item.txn_type} dat={date} />
+            <Historycom nam={profileName} amt={item.txn_crdt} imgg={require('../assets/handsome.jpg')} sub={item.txn_type} dat={date} />
           }
         />
 

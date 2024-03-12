@@ -61,8 +61,8 @@ useEffect(()=>{
   return (
 
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', marginTop: 10, flexDirection: 'row' }}>
-        <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', right: 50 }} onPress={() => navigation.goBack()}>
+      <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', marginTop: 10, flexDirection: 'row' }}>
+        <TouchableOpacity style={{ backgroundColor: COLORS.white, width: '10%', left:'5%',position:'absolute' }} onPress={() => navigation.goBack()}>
           <Icon name='arrow-left' size={30} color={COLORS.black} />
         </TouchableOpacity>
         <Text style={{ fontSize: 26, fontWeight: '700', color: COLORS.main }}>TopUp Request</Text>
