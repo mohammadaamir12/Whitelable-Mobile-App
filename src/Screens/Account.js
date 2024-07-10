@@ -110,14 +110,14 @@ const profilecall=async()=>{
               marginTop: 20
             }}> */}
             <Image style={{
-              height: hp('12%'),
-              width: wp('22%'),
-              borderRadius: 30,
+              height: hp('10%'),
+              width: wp('20%'),
+              borderRadius: 40,
               alignItems:'center',
               justifyContent:'center',
               marginTop:8
             }}
-              source={require('../assets/profileimg.png')} />
+              source={require('../assets/handsome.jpg')} />
           {/* </View> */}
           <Text
             style={{

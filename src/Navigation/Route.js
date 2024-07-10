@@ -40,10 +40,45 @@ import Securemood1 from '../Screens/Securemood1';
 import Normal1 from '../Screens/Normal1';
 import Securekycnotverified from '../Screens/Securekycnotverified';
 const Stack = createNativeStackNavigator();
+import {isTokenExpired} from './Tokenutil'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import RecentTransactiondetails from '../Screens/RecentTransactiondetails';
 
 
-const Route = () => {
-  
+const Route = ({navigation}) => {
+  const [token, setToken] = useState(null);
+  // const navigation = useNavigation();
+  // useEffect(()=>{
+  //   checkTokenValidity();
+    
+  //   const tokenCheckInterval = setInterval(() => {
+  //     checkTokenValidity();
+  //   }, 60000);
+  //   return () => clearInterval(tokenCheckInterval);
+  // },[])
+  const checkTokenValidity = async () => {
+    const storedToken = await AsyncStorage.getItem('cus_token');
+    console.log('sdfdfd',storedToken)
+    if (storedToken) {
+      
+      if (isTokenExpired(storedToken)) {
+        
+        navigateToLogin(); 
+      } else {
+     
+        setToken(storedToken);
+        console.log('helloo mitaaaa don')
+      }
+    } else {
+      navigateToLogin();
+    }
+  };
+  const navigateToLogin = () => {
+    // Navigate to login screen using navigation prop
+    // This assumes you are using React Navigation and have access to navigation prop
+    navigation.navigate('Login');
+  };
 
   return (
     <NavigationContainer>
@@ -69,6 +104,7 @@ const Route = () => {
         <Stack.Screen name="OnboardLocation" component={OnboardLocation} />
         <Stack.Screen name="OnboardDocument" component={OnboardDocument} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="RecentTransactiondetails" component={RecentTransactiondetails} />
         <Stack.Screen name="Payout" component={Payout} />
         <Stack.Screen name="Verificationsuit" component={Verificationsuit} />
         <Stack.Screen name="ReportDetails" component={ReoprtDetails} />

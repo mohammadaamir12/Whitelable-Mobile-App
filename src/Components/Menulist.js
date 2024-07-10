@@ -32,14 +32,15 @@ const Menulist = ({ naam, icon, profiledetails }) => {
   return (
     <TouchableOpacity
       style={{
-        marginTop: 15,
+        marginTop: 10,
+        marginBottom:5,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#E8F1EE',
         width: '95%',
         alignSelf: 'center',
         borderRadius: 10,
-        paddingVertical: 15,
+        paddingVertical: 5,
         elevation: 5, // for Android shadow
         shadowColor: "#000", // for iOS shadow
         shadowOffset: {

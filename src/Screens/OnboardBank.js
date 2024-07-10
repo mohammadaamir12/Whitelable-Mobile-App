@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity, TextInput, ScrollView, ActivityIndicator, Modal } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import Icon from 'react-native-vector-icons/Feather'
 import { COLORS } from '../Colors/Colors'
 import Inputtext from '../Components/Inputtext'
 import DropdownSelect from '../Components/DropdownSelect'
@@ -59,12 +58,12 @@ const OnboardBank = ({ navigation, route }) => {
       })
   }
   const set=()=>{
-    if(bank!='' && bankacc!='' && ifsc_code!='' && panno!=''){
+    if(bank!='' && bankacc!='' && ifsc!='' && panno!=''){
       settrack(true)
     }
   }
   const submit = async () => {
-    if(bank!='' && bankacc!='' && ifsc_code!='' && panno!=''){
+    if(bank!='' && bankacc!='' && ifsc!='' && panno!=''){
       setModalVisible(true)
       // console.log('heloo');
       const token = await AsyncStorage.getItem('cus_token');

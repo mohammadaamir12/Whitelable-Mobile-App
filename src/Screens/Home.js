@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, StatusBar, ScrollView, BackHandler, Alert, FlatList, RefreshControl, } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StatusBar, ScrollView, BackHandler, Alert, FlatList, RefreshControl,StyleSheet } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -302,7 +302,7 @@ const Home = ({ navigation }) => {
         <View style={{ justifyContent:'space-between', flexDirection: 'row', margin: 14, alignItems: 'center' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity activeOpacity={0.9} onPress={() => { navigation.openDrawer() }}>
-              <Image style={{ height: hp('8%'), width: wp('16%'),resizeMode:'contain' }} source={require('../assets/man.png')} />
+              <Image style={{ height: hp('7%'), width: wp('14%'),resizeMode:'cover',borderRadius:30 }} source={require('../assets/handsome.jpg')} />
             </TouchableOpacity>
             <View style={{ marginStart: 10 }}>
               <Text style={{ color: COLORS.main, fontSize: hp('2%'), fontWeight: '400' }}>Welcome !</Text>
@@ -330,8 +330,8 @@ const Home = ({ navigation }) => {
         </Text>
         <View >
           <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
-            <SendandReceivebtn color={'#F7F1FF'} text={'Top-up Wallet'} name={'arrow-down-left'} iconColor={'#A699F8'} page={'Topup'} />
-            <SendandReceivebtn color={'#FFF3F0'} text={'Payout'} name={'arrow-up-right'} iconColor={'#EF8B6E'} page={'Payout'} />
+            <SendandReceivebtn color={'#F7F1FF'} text={'Top-up Wallet'} name={'arrow-up-right'} iconColor={'#A699F8'} page={'Topup'} />
+            <SendandReceivebtn color={'#FFF3F0'} text={'Payout'} name={'arrow-down-left'} iconColor={'#EF8B6E'} page={'Payout'} />
             <SendandReceivebtn color={'#FAF0F5'} text={'Request Fund'} name={'archive'} iconColor={'#F497C9'} page={'RequestFund'} />
             <SendandReceivebtn color={'#E8F1EE'} text={'Verification Suite'} name={'briefcase'} iconColor={'#056348'} page={'VerficationSuit'} />
           </ScrollView>
@@ -355,9 +355,12 @@ const Home = ({ navigation }) => {
         <FlatList
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
+          initialNumToRender={10}
           data={orderid}
           renderItem={({ item }) =>
+          <TouchableOpacity style={styles.RecentButton} onPress={()=>navigation.navigate('RecentTransactiondetails')}>
             <Historycom nam={profileName} amt={item.txn_crdt} imgg={require('../assets/handsome.jpg')} sub={item.txn_type} dat={date} />
+            </TouchableOpacity>
           }
         />
 
@@ -379,5 +382,23 @@ const Home = ({ navigation }) => {
     </View>
   )
 }
+
+const styles=StyleSheet.create({
+  RecentButton:{
+    backgroundColor:'#E8F1EE',
+    elevation: 5, // for Android shadow
+    shadowColor: "#000", // for iOS shadow
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    marginVertical:4,
+    paddingVertical:4,
+    width:'96%',
+    alignSelf:'center'
+  },
+})
 
 export default Home

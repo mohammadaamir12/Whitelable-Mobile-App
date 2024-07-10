@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { Base_Url, reportall } from '../Config/config'
 import Toast from 'react-native-tiny-toast'
+import Moment from 'moment';
 
 const AllTransactionReport = ({ navigation }) => {
   const [filter, setFilter] = useState(false)
@@ -92,7 +93,7 @@ const AllTransactionReport = ({ navigation }) => {
          showsVerticalScrollIndicator={false}
         data={allReport}
         renderItem={({item})=>
-        <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/handsome.jpg')} sub={item.txn_type} dat={item.txn_date} />
+        <Historycom nam={item.txn_order_id} amt={item.txn_crdt} imgg={require('../assets/handsome.jpg')} sub={item.txn_type} dat={Moment(item.paytm_txn_datetime).format('ll')} />
         }
         />
           {/* <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />

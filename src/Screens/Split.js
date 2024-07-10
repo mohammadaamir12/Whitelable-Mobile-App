@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect,useState } from 'react'
 import { COLORS } from '../Colors/Colors'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { jwtDecode } from "jwt-decode";
 
  
 
@@ -10,9 +11,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Split = () => {
     const navigation = useNavigation();
     const [screen, setScreen] = useState(false)
-    const[token,setToken]=useState(false)
-  
-  retrieveData = async () => {
+    
+
+   
+
+   
+    
+    useEffect(() => { 
+      
+      setTimeout(() => {
+        retrieveData()  
+       },2000);
+    },[])
+
+  retrieveData = async () => {    
     const value = await AsyncStorage.getItem('mess');
     const profile = await AsyncStorage.getItem('profile');
     const page= await AsyncStorage.getItem('page');
@@ -56,14 +68,7 @@ const Split = () => {
       }); 
     }
   }
-    useEffect(() => {
-      
-      
-        setTimeout(() => {
-          retrieveData()
-           
-         },2000);
-      },[])
+   
 
   return (
     <View style={{flex:1,alignItems:'center',justifyContent:'center',backgroundColor:COLORS.main}}>

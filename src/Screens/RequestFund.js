@@ -158,10 +158,8 @@ const RequestFund = ({ navigation }) => {
       Toast.showSuccess('Submitted')
       
       setTimeout(() => {
-       
-        
         navigation.navigate('HomeScreen')
-      }, 3000);
+      }, 1000);
       
     })
     .catch(error => {
@@ -216,7 +214,7 @@ const RequestFund = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, width: '90%', alignSelf: 'center', marginTop: 20 }}>
             <Inputtext name={'Request To'} place={'Admin'} value={request} setValue={setrequest} />
-            <Inputtext name={'Amount'} place={'Enter Amount'} value={amount} setValue={setAmount} />
+            <Inputtext name={'Amount'} place={'Enter Amount'} value={amount} setValue={setAmount}  keyboard={'numeric'} />
             <Inputtext name={'Reference Number'} place={'Enter Number'} value={reference} setValue={setReference} />
             <DropdownSelect nam='Txn Type' sty={5} showContent={'Select Type'} dropdown={txn_type} dropselect={txn} setDropselect={setTxn}/>
             <DropdownSelect nam='Bank' sty={5} showContent={'Select Bank'} dropdown={lists} dropselect={bank} setDropselect={setBank} type={'type'} />

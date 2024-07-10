@@ -20,7 +20,8 @@ const HomeCartView = ({
                 marginTop: hp('2%'),
                 marginStart: 8,
                 marginEnd: 5,
-                flex: 1
+                flex: 1,
+
             }}>
             <ImageBackground
                 style={{
@@ -28,11 +29,14 @@ const HomeCartView = ({
                     height: hp('23%'),
                     width: wp('80%'),
                     borderRadius: 18,
-                    shadowColor: "#000",
-                    shadowOffset: { width: 0, height: 1 },
-                    shadowOpacity: 10,
-                    shadowRadius: 7,
-                    elevation: 4
+                    elevation: 5, // for Android shadow
+                    shadowColor: "#000", // for iOS shadow
+                    shadowOffset: {
+                        width: 0,
+                        height: 2,
+                    },
+                    shadowOpacity: 0.23,
+                    shadowRadius: 2.62,
                 }}
                 source={img}
                 imageStyle={{ borderRadius: 20 }}>

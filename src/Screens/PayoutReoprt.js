@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { Base_Url, payReport } from '../Config/config'
 import Toast from 'react-native-tiny-toast'
+import Moment from 'moment';
 
 const PayoutReoprt = ({ navigation }) => {
   const [filter, setFilter] = useState(false)
@@ -95,7 +96,7 @@ const PayoutReoprt = ({ navigation }) => {
          showsVerticalScrollIndicator={false}
         data={payoutReport}
         renderItem={({item})=>
-        <Historycom nam={item.order_id} amt={item.credit_amount} imgg={require('../assets/handsome.jpg')} sub={item.txn_status_desc} dat={item.paytm_txn_datetime} />
+        <Historycom nam={item.order_id} amt={item.credit_amount} imgg={require('../assets/handsome.jpg')} sub={item.payment_mode} dat={Moment(item.paytm_txn_datetime).format('ll')} />
         }
         />
           {/* <Historycom nam={'Aamir'} amt={'140.30'} imgg={require('../assets/handsome.jpg')} sub={'Subscription'} dat={'18 sept 2023'} />

@@ -35,7 +35,7 @@ const VerifyPan = ({navigation}) => {
   
           }
           else if (response.data.status == 'FAIL') {
-            Toast.showSuccess('Failed')
+            Toast.show('Failed')
   
           }
   

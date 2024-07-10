@@ -27,15 +27,17 @@ const Botton = ({
                 icname == 'address-card' ? navigation.navigate('VerifyAdhar') :
                   icname == 'home' ? navigation.navigate('VerifyAccount') :
                     icname == 'money-bill' ? navigation.navigate('VerifyGST') :
-                        icname == 'auto-graph' ? navigation.navigate('VerificationReport') : null}
-      activeOpacity={0.7} style={{ marginTop: 15, backgroundColor: '#E8F1EE', flexDirection: 'row', alignItems: 'center', height: hp('9%'), borderRadius: 8,elevation: 5, // for Android shadow
-      shadowColor: "#000", // for iOS shadow
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.23,
-      shadowRadius: 2.62, }}>
+                      icname == 'auto-graph' ? navigation.navigate('VerificationReport') : null}
+      activeOpacity={0.7} style={{
+        marginTop: 15, backgroundColor: '#E8F1EE', flexDirection: 'row', alignItems: 'center', height: hp('9%'), borderRadius: 8, elevation: 5, // for Android shadow
+        shadowColor: "#000", // for iOS shadow
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+      }}>
 
       <View style={{ borderRadius: 40, height: hp('60%'), width: wp('15%'), alignItems: 'center', justifyContent: 'center' }}>
 

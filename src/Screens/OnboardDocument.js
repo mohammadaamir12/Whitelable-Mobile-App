@@ -210,7 +210,7 @@ const OnboardDocument = () => {
               })
               .catch(error => {
                 console.error('Upload error:', error.response ? error.response : error);
-                // console.log(error.response.data)
+                console.log(error.response)
               });
             
         }

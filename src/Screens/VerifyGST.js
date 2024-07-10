@@ -32,12 +32,12 @@ const VerifyGST = ({navigation}) => {
           if (response.data.status == 'SUCCESS') {
   
             console.log('56', response.data)
-            Toast.show('Success')
+            Toast.showSuccess('Success')
             navigation.goBack()
   
           }
           else if (response.data.status == 'FAIL') {
-            Toast.showSuccess('Failed')
+            Toast.show('Failed')
   
           }
   

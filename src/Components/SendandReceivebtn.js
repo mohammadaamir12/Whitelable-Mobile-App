@@ -16,7 +16,7 @@ const SendandReceivebtn = ({
   
   return (
     <View style={{alignItems:'center'}}>
-      <TouchableOpacity onPress={()=>page==='Payout'?navigation.navigate('Payout'):page==='Topup'?navigation.navigate('TopUp'):page==='VerficationSuit'?navigation.navigate('Verificationsuit'):page==='RequestFund'?navigation.navigate('RequestFund'):null} style={{height:hp('16%'),width:wp('25%'),backgroundColor:color,borderRadius:20,alignItems:'center',justifyContent:'center',margin:20,elevation: 5, // for Android shadow
+      <TouchableOpacity onPress={()=>page==='Payout'?navigation.navigate('Payout'):page==='Topup'?navigation.navigate('TopUp'):page==='VerficationSuit'?navigation.navigate('Verificationsuit'):page==='RequestFund'?navigation.navigate('RequestFund'):null} style={{height:hp('12.5%'),width:wp('25%'),backgroundColor:color,borderRadius:20,alignItems:'center',justifyContent:'center',margin:15,elevation: 5, // for Android shadow
   shadowColor: "#000", // for iOS shadow
   shadowOffset: {
     width: 0,
