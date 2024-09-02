@@ -33,6 +33,13 @@ Here are some screenshots of the app:
 ![Screenshot_2024-09-02-11-22-24-91_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/09c89054-ba27-4d45-97db-8df4061113c7)
 ![Screenshot_2024-09-02-11-22-20-98_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/c3c467e6-c36c-41a8-8674-6de9fea7b8ed)
 
+## Video Demo
+
+
+https://github.com/user-attachments/assets/31bb6759-114d-440d-8c7c-d721c554f30b
+
+
+
 ## How to Use
 
 1. **Top Up Your Wallet**: Use a credit card to add funds to your wallet. Our charges are lower than other competitors.
