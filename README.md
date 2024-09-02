@@ -29,7 +29,6 @@ Here are some screenshots of the app:
 ![Screenshot_2024-09-02-11-22-59-48_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/9a05a870-6c58-414c-ada1-0e9c223a1d66)
 ![Screenshot_2024-09-02-11-22-56-40_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/c02a6f5a-ea7b-4b71-9e1f-9f95706b6296)
 ![Screenshot_2024-09-02-11-22-50-82_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/69904f58-5763-4452-8313-76d8d8d3b869)
-![Screenshot_2024-09-02-11-22-45-73_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/8b1c5648-0124-458e-9351-2ee2a849944c)
 ![Screenshot_2024-09-02-11-22-24-91_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/09c89054-ba27-4d45-97db-8df4061113c7)
 ![Screenshot_2024-09-02-11-22-20-98_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/c3c467e6-c36c-41a8-8674-6de9fea7b8ed)
 
