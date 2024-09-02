@@ -23,6 +23,8 @@ Here are some screenshots of the app:
 
 ### 6. Settings Page
 <img src="https://github.com/user-attachments/assets/82d990ae-f468-419f-9633-645029465c73" alt="Settings Page" width="600"/>
+
+
 ![Screenshot_2024-09-02-11-23-08-46_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/6f75a497-b3c1-43a1-b9e8-35af314d7272)
 ![Screenshot_2024-09-02-11-22-59-48_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/9a05a870-6c58-414c-ada1-0e9c223a1d66)
 ![Screenshot_2024-09-02-11-22-56-40_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/c02a6f5a-ea7b-4b71-9e1f-9f95706b6296)
