@@ -1,6 +1,6 @@
 
 //Base Url
-export const Base_Url ="https://dev.wl.api.runpaisa.com/"
+
 //Post Login
 export const login="login"
 //Get dashboard
