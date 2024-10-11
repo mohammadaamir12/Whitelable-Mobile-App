@@ -1,28 +1,19 @@
-# Wallet App for Merchants
-
+Wallet App for Merchants
 Welcome to our wallet app for merchants! Our app allows you to top up a wallet with a credit card, offering lower charges compared to competitors. You can then transfer wallet funds to another bank account after verification.
 
-## Screenshots
-
-Here are some screenshots of the app:
-
-### 1. Wallet Dashboard
-![Screenshot_2024-09-02-11-22-16-94_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/ea349a3e-4c26-4933-8cc3-72cd13e42cb7)
-
-### 2. Top-Up Screen
-<img src="https://github.com/user-attachments/assets/3ea3f74e-d9d2-4f8b-9ef3-8b1a23bf4171" alt="Top-Up Screen" width="600"/>
-
-### 3. Transfer Funds Screen
-<img src="https://github.com/user-attachments/assets/ad791363-8e85-45ce-a672-600244558fab" alt="Transfer Funds Screen" width="600"/>
-
-### 4. Transaction History
-<img src="https://github.com/user-attachments/assets/74242d96-f724-47d6-b108-42a2d1103637" alt="Transaction History" width="600"/>
-
-### 5. Verification Process
-<img src="https://github.com/user-attachments/assets/b9580189-b041-41bb-a50c-d36f73d446bf" alt="Verification Process" width="600"/>
-
-### 6. Settings Page
-<img src="https://github.com/user-attachments/assets/82d990ae-f468-419f-9633-645029465c73" alt="Settings Page" width="600"/>
+Screenshots
+1. Wallet Dashboard
+<img src="https://github.com/user-attachments/assets/ea349a3e-4c26-4933-8cc3-72cd13e42cb7" alt="Wallet Dashboard" width="200" height="400"/>
+2. Top-Up Screen
+<img src="https://github.com/user-attachments/assets/3ea3f74e-d9d2-4f8b-9ef3-8b1a23bf4171" alt="Top-Up Screen" width="200" height="400"/>
+3. Transfer Funds Screen
+<img src="https://github.com/user-attachments/assets/ad791363-8e85-45ce-a672-600244558fab" alt="Transfer Funds Screen" width="200" height="400"/>
+4. Transaction History
+<img src="https://github.com/user-attachments/assets/74242d96-f724-47d6-b108-42a2d1103637" alt="Transaction History" width="200" height="400"/>
+5. Verification Process
+<img src="https://github.com/user-attachments/assets/b9580189-b041-41bb-a50c-d36f73d446bf" alt="Verification Process" width="200" height="400"/>
+6. Settings Page
+<img src="https://github.com/user-attachments/assets/82d990ae-f468-419f-9633-645029465c73" alt="Settings Page" width="200" height="400"/>
 
 
 ![Screenshot_2024-09-02-11-23-08-46_bd40007907e2e0bce9ec82464f620d16](https://github.com/user-attachments/assets/6f75a497-b3c1-43a1-b9e8-35af314d7272)
