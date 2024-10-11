@@ -3,17 +3,17 @@ Welcome to our wallet app for merchants! Our app allows you to top up a wallet w
 
 Screenshots
 1. Wallet Dashboard
-<img src="https://github.com/user-attachments/assets/ea349a3e-4c26-4933-8cc3-72cd13e42cb7" alt="Wallet Dashboard" width="200" height="400" style="margin-top: 10px;"/>
+<div style="text-align: center; margin-top: 10px;"> <img src="https://github.com/user-attachments/assets/ea349a3e-4c26-4933-8cc3-72cd13e42cb7" alt="Wallet Dashboard" width="200" height="400"/> </div>
 2. Top-Up Screen
-<img src="https://github.com/user-attachments/assets/3ea3f74e-d9d2-4f8b-9ef3-8b1a23bf4171" alt="Top-Up Screen" width="200" height="400" style="margin-top: 10px;"/>
+<div style="text-align: center; margin-top: 10px;"> <img src="https://github.com/user-attachments/assets/3ea3f74e-d9d2-4f8b-9ef3-8b1a23bf4171" alt="Top-Up Screen" width="200" height="400"/> </div>
 3. Transfer Funds Screen
-<img src="https://github.com/user-attachments/assets/ad791363-8e85-45ce-a672-600244558fab" alt="Transfer Funds Screen" width="200" height="400" style="margin-top: 10px;"/>
+<div style="text-align: center; margin-top: 10px;"> <img src="https://github.com/user-attachments/assets/ad791363-8e85-45ce-a672-600244558fab" alt="Transfer Funds Screen" width="200" height="400"/> </div>
 4. Transaction History
-<img src="https://github.com/user-attachments/assets/74242d96-f724-47d6-b108-42a2d1103637" alt="Transaction History" width="200" height="400" style="margin-top: 10px;"/>
+<div style="text-align: center; margin-top: 10px;"> <img src="https://github.com/user-attachments/assets/74242d96-f724-47d6-b108-42a2d1103637" alt="Transaction History" width="200" height="400"/> </div>
 5. Verification Process
-<img src="https://github.com/user-attachments/assets/b9580189-b041-41bb-a50c-d36f73d446bf" alt="Verification Process" width="200" height="400" style="margin-top: 10px;"/>
+<div style="text-align: center; margin-top: 10px;"> <img src="https://github.com/user-attachments/assets/b9580189-b041-41bb-a50c-d36f73d446bf" alt="Verification Process" width="200" height="400"/> </div>
 6. Settings Page
-<img src="https://github.com/user-attachments/assets/82d990ae-f468-419f-9633-645029465c73" alt="Settings Page" width="200" height="400" style="margin-top: 10px;"/>
+<div style="text-align: center; margin-top: 10px;"> <img src="https://github.com/user-attachments/assets/82d990ae-f468-419f-9633-645029465c73" alt="Settings Page" width="200" height="400"/> </div>
 
 
 ## Video Demo
